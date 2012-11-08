@@ -17,7 +17,7 @@ module Osc
                  "Reinickendorf"]
 
     def getDistricts(string)
-      DISTRICTS.map { |district| string.match(district) }.reject(&:nil?).map(&:to_s)
+      DISTRICTS.select { |district| string.match(district) }
     end
   end
 end
