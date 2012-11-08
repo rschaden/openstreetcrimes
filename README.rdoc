@@ -1,1 +1,3 @@
-TODO: README
+Used Technologies:
+  * spatial_adapter - PostGis ORM, ActiveRecord-Like, https://github.com/fragility/spatial_adapter
+  * Feedzirra - Feed parsing gem, https://github.com/pauldix/feedzirra
