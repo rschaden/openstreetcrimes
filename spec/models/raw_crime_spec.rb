@@ -17,6 +17,11 @@ describe RawCrimes do
       @raw_crime.should be_valid
     end
 
+    it 'is not valid without guid' do
+      @raw_crime.guid = ""
+      @raw_crime.should_not be_valid
+    end
+
     it 'does not allow duplicate guids' do
       duplicate_crime = FactoryGirl.build(:raw_crimes,
                                         guid: @raw_crime.guid)
