@@ -11,23 +11,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121108150720) do
+ActiveRecord::Schema.define(:version => 20121109233855) do
 
   create_table "layer", :id => false, :force => true do |t|
-    t.integer "topology_id",                                  :null => false
-    t.integer "layer_id",                                     :null => false
-    t.string  "schema_name",    :limit => nil,                :null => false
-    t.string  "table_name",     :limit => nil,                :null => false
-    t.string  "feature_column", :limit => nil,                :null => false
-    t.integer "feature_type",                                 :null => false
-    t.integer "level",                         :default => 0, :null => false
+    t.integer "topology_id",                   :null => false
+    t.integer "layer_id",                      :null => false
+    t.string  "schema_name",                   :null => false
+    t.string  "table_name",                    :null => false
+    t.string  "feature_column",                :null => false
+    t.integer "feature_type",                  :null => false
+    t.integer "level",          :default => 0, :null => false
     t.integer "child_id"
   end
 
   create_table "raw_crimes", :force => true do |t|
-    t.string   "guid"
-    t.string   "title"
-    t.string   "link"
+    t.text     "guid"
+    t.text     "title"
+    t.text     "link"
     t.datetime "date"
     t.text     "text"
     t.datetime "created_at", :null => false
@@ -35,10 +35,10 @@ ActiveRecord::Schema.define(:version => 20121108150720) do
   end
 
   create_table "topology", :force => true do |t|
-    t.string  "name",      :limit => nil,                    :null => false
-    t.integer "srid",                                        :null => false
-    t.float   "precision",                                   :null => false
-    t.boolean "hasz",                     :default => false, :null => false
+    t.string  "name",                         :null => false
+    t.integer "srid",                         :null => false
+    t.float   "precision",                    :null => false
+    t.boolean "hasz",      :default => false, :null => false
   end
 
 end
