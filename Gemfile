@@ -42,4 +42,5 @@ gem 'jquery-rails'
 group :developement do
   gem 'pry'
   gem "rspec-rails"
+  gem "factory_girl"
 end
