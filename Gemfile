@@ -41,5 +41,5 @@ gem 'jquery-rails'
 # gem 'debugger'
 group :developement do
   gem 'pry'
-  gem 'rspec'
+  gem "rspec-rails"
 end
