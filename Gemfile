@@ -6,7 +6,7 @@ gem 'rails', '3.2.7'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'feedzirra'
-gem 'spatial_adapter'
+gem 'rgeo'
 gem 'pg'
 gem 'rb-readline'
 gem 'geocoder'

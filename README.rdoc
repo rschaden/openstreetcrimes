@@ -1,4 +1,4 @@
 Used Technologies:
-  * spatial_adapter - PostGis ORM, ActiveRecord-Like, https://github.com/fragility/spatial_adapter
+  * RGeo - geospatial data library for Ruby,  https://github.com/dazuma/rgeo
   * Feedzirra - Feed parsing gem, https://github.com/pauldix/feedzirra
   * Geocoder - geocoding/reverse geocoding gem, https://github.com/alexreisner/geocoder
