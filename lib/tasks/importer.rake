@@ -14,6 +14,7 @@ namespace :osc do
 		feed.last_modified
 
 		puts feed.title
+require 'pry'; binding.pry
 
 		feed.entries.each do |entry|
       db_entry = RawCrimes.new(
@@ -22,7 +23,7 @@ namespace :osc do
         link: entry.url,
         date: entry.published)
 
-      db_entry.save if db_entry.valid?
+#       db_entry.save if db_entry.valid?
 		end
 
 
