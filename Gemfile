@@ -9,6 +9,7 @@ gem 'feedzirra'
 gem 'spatial_adapter'
 gem 'pg'
 gem 'rb-readline'
+gem 'geocoder'
 
 
 # Gems used only for assets and not required
