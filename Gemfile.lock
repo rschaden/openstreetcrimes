@@ -161,6 +161,7 @@ DEPENDENCIES
   feedzirra
   geocoder
   jquery-rails
+  nokogiri
   pg
   pry
   rails (= 3.2.7)
