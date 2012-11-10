@@ -16,8 +16,24 @@ module Osc
                  "Lichtenberg",
                  "Reinickendorf"]
 
+    STREET_SUFFIXES = ["str",
+                       "straß",
+                       "weg",
+                       "platz",
+                       "damm"]
+
     def getDistricts(string)
       DISTRICTS.select { |district| string.match(district) }
+    end
+
+    def getStreets(string)
+      return [] if string.nil?
+      STREET_SUFFIXES.map do |suffix|
+        street = "\\w*#{suffix}\\w*"
+        cap_street = "\\w*\\s#{suffix.capitalize}\\w*"
+        street_regexp = Regexp.new("(#{street}|#{cap_street})")
+        string.scan(street_regexp)
+      end.flatten.reject(&:empty?)
     end
   end
 end
