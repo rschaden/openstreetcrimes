@@ -1,4 +1,5 @@
 Used Technologies:
   * RGeo - geospatial data library for Ruby,  https://github.com/dazuma/rgeo
+  * PostGIS ActiveRecord Adapter, https://github.com/dazuma/activerecord-postgis-adapter
   * Feedzirra - Feed parsing gem, https://github.com/pauldix/feedzirra
   * Geocoder - geocoding/reverse geocoding gem, https://github.com/alexreisner/geocoder

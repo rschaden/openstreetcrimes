@@ -10,6 +10,7 @@ gem 'rgeo'
 gem 'pg'
 gem 'rb-readline'
 gem 'geocoder'
+gem 'activerecord-postgis-adapter'
 
 
 # Gems used only for assets and not required
