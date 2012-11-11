@@ -24,9 +24,9 @@ namespace :osc do
       )
       if RawCrimes.where(guid: unique_id).count == 0
         db_entry.save if db_entry.valid?
-        puts "Saved: #{entry.title}" if db_entry.persisted?
+        puts "Saved: #{entry.title.slice(0,60)}" if db_entry.persisted?
       else
-        puts "Already exists: #{entry.title}"
+        puts "Already exists: #{entry.title.slice(0,60)}"
       end
     end
 
