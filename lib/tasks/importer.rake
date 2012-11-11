@@ -17,19 +17,24 @@ namespace :osc do
 
 		feed.entries.each do |entry|
 
+      unique_id = Digest::SHA1.hexdigest(entry.entry_id)
 
       html = Net::HTTP.get(URI(entry.url))
       doc = Nokogiri::HTML(html)
-      content = doc.css("#bomain_content")
+      content_node = doc.css("#bomain_content").first rescue Nokogiri::NodeSet.new
+      content_node.attr("id", unique_id)
 
       db_entry = RawCrimes.new(
-        guid: entry.entry_id,
+        guid: unique_id,
         title: entry.title,
         link: entry.url,
         date: entry.published,
-        text: content)
-
-#       db_entry.save if db_entry.valid?
+        text: content_node.to_html
+      )
+       if RawCrimes.find(guid: unique_id).count == 0
+          db_entry.save if db_entry.valid?
+          puts "Saved: #{entry.title}" if db_entry.persisted?
+       end
 		end
 
 
