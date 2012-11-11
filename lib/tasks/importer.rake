@@ -12,8 +12,8 @@ namespace :osc do
 
       html = Net::HTTP.get(URI(entry.url))
       doc = Nokogiri::HTML(html)
-      content_node = doc.css("#bomain_content").first rescue Nokogiri::NodeSet.new
-      content_node.attr("id", unique_id)
+      content_node = doc.css("#bomain_content").first rescue Nokogiri::XML::NodeSet.new
+      content_node.set_attribute("id", unique_id)
 
       db_entry = RawCrimes.new(
         guid: unique_id,
@@ -22,9 +22,11 @@ namespace :osc do
         date: entry.published,
         text: content_node.to_html
       )
-      if RawCrimes.find(guid: unique_id).count == 0
+      if RawCrimes.where(guid: unique_id).count == 0
         db_entry.save if db_entry.valid?
         puts "Saved: #{entry.title}" if db_entry.persisted?
+      else
+        puts "Already exists: #{entry.title}"
       end
     end
 
