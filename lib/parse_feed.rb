@@ -17,7 +17,6 @@ module Osc
                  "Reinickendorf"]
 
     STREET_SUFFIXES = ["str",
-                       "straß",
                        "weg",
                        "platz",
                        "damm"]
@@ -29,8 +28,8 @@ module Osc
     def getStreets(string)
       return [] if string.nil?
       STREET_SUFFIXES.map do |suffix|
-        street = "\\w*#{suffix}\\w*"
-        cap_street = "\\w*\\s#{suffix.capitalize}\\w*"
+        street = "\\p{L}*#{suffix}\\p{L}+w*"
+        cap_street = street.gsub("#{suffix}", "\\s#{suffix.capitalize}")
         street_regexp = Regexp.new("(#{street}|#{cap_street})")
         string.scan(street_regexp)
       end.flatten.reject(&:empty?)
