@@ -29,8 +29,7 @@ class RawCrimes < ActiveRecord::Base
         text: content_node.to_html
       )
 
-      title_short = "#{entry.title.slice(0,60)}..." unless entry.title.length < 60
-
+      title_short = entry.title.length < 60 ? entry.title : "#{entry.title.slice(0,60)}..."
       if RawCrimes.where(guid: unique_id).count == 0
         db_entry.save if db_entry.valid?
         puts "Saved: #{title_short}" if db_entry.persisted?
