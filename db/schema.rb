@@ -11,7 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121109233855) do
+ActiveRecord::Schema.define(:version => 20121118215140) do
+
+  create_table "crime_types", :force => true do |t|
+    t.string   "name",                           :null => false
+    t.string   "regex",      :default => "^.+$", :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+    t.integer  "priority",   :default => 100
+  end
 
   create_table "layer", :id => false, :force => true do |t|
     t.integer "topology_id",                   :null => false

@@ -5,3 +5,9 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+#
+CrimeType.add({name: "Gewalt", regex: ""})
+CrimeType.add({name: "Dienstahl", regex: ""})
+CrimeType.add({name: "Mord", regex: ""})
+CrimeType.add({name: "Verkehrsdelikte", regex: ""})
+CrimeType.add({name: "Sonstiges", regex: ""})
