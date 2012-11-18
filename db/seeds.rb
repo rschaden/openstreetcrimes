@@ -7,6 +7,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+CrimeType.delete_all
 CrimeType.create({name: "Gewalt", regex: "(attack|Messer|Überfall|Sch[uü]ss|Vergewaltig|Stich)", priority: 10})
 CrimeType.create({name: "Diebstahl und Raub", regex: "(Dieb|Diebstahl|gestohlen|Raub\>|Räuber)", priority: 20})
 CrimeType.create({name: "Mord und Totschlag", regex: "(Mord|Tötung)", priority: 30})
