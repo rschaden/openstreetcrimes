@@ -1,5 +1,5 @@
 development: &defaults
-  adapter: postgresql
+  adapter: postgis
   database: openstreetcrimes_dev
   host: localhost
   username: user
