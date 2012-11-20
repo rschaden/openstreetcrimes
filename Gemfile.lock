@@ -167,6 +167,7 @@ DEPENDENCIES
   rails (= 3.2.7)
   rb-readline
   rgeo
+  rgeo-activerecord
   rspec-rails
   sass-rails (~> 3.2.3)
   therubyracer

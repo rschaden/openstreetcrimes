@@ -6,8 +6,9 @@ gem 'rails', '3.2.7'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'feedzirra'
-gem 'rgeo'
 gem 'pg'
+gem 'rgeo'
+gem "rgeo-activerecord"
 gem 'rb-readline'
 gem 'geocoder'
 gem 'activerecord-postgis-adapter'
