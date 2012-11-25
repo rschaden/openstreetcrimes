@@ -29,9 +29,10 @@ module Osc
     def getStreets(string)
       return [] if string.nil?
       STREET_SUFFIXES.map do |suffix|
-        street = "\\p{L}*#{suffix}\\s"
+        street = "\\p{Word}*#{suffix}\\b"
         cap_street = street.gsub("#{suffix}", "\\s#{suffix.capitalize}")
         street_regexp = Regexp.new("(#{street}|#{cap_street})")
+        # require 'pry'; binding.pry
         string.scan(street_regexp)
       end.flatten.reject(&:empty?)
     end
