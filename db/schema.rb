@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121118215140) do
+ActiveRecord::Schema.define(:version => 20121126161207) do
 
   create_table "crime_types", :force => true do |t|
     t.string   "name",                           :null => false
@@ -20,6 +20,17 @@ ActiveRecord::Schema.define(:version => 20121118215140) do
     t.datetime "updated_at",                     :null => false
     t.integer  "priority",   :default => 100
   end
+
+  create_table "crimes", :force => true do |t|
+    t.string   "description"
+    t.date     "date"
+    t.spatial  "location",      :limit => {:srid=>4326, :type=>"point", :geographic=>true}
+    t.datetime "created_at",                                                                :null => false
+    t.datetime "updated_at",                                                                :null => false
+    t.integer  "crime_type_id"
+  end
+
+  add_index "crimes", ["location"], :name => "index_crimes_on_location", :spatial => true
 
   create_table "layer", :id => false, :force => true do |t|
     t.integer "topology_id",                   :null => false
@@ -40,14 +51,6 @@ ActiveRecord::Schema.define(:version => 20121118215140) do
     t.text     "text"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-  end
-
-  create_table "spatial_ref_sys", :id => false, :force => true do |t|
-    t.integer "srid",                      :null => false
-    t.string  "auth_name", :limit => 256
-    t.integer "auth_srid"
-    t.string  "srtext",    :limit => 2048
-    t.string  "proj4text", :limit => 2048
   end
 
   create_table "topology", :force => true do |t|
