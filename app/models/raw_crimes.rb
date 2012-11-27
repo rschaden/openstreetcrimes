@@ -1,5 +1,5 @@
 require 'parse_feed'
-require 'geocoder'
+require 'geocode'
 
 class RawCrimes < ActiveRecord::Base
   attr_accessible :date, :guid, :link, :text, :title
@@ -9,11 +9,7 @@ class RawCrimes < ActiveRecord::Base
   BERLIN_POLIZEI_FEED_URL = "http://www.berlin.de/polizei/presse-fahndung/_rss_presse.xml"
 
   def location
-    point = Geocoder.coordinates(location_string)
-
-    #Geocoder coordinates are latlon, RGeo needs lonlat
-    #TODO: write wrapper
-    "Point(#{point.second} #{point.first})"
+    Osc::Geocode.get_point(location_string)
   end
 
   def location_string
