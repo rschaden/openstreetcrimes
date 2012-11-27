@@ -30,8 +30,8 @@ class RawCrimes < ActiveRecord::Base
       )
 
       title_short = entry.title.length < 60 ? entry.title : "#{entry.title.slice(0,60)}..."
-      if RawCrimes.where(guid: unique_id).count == 0
-        db_entry.save if db_entry.valid?
+      if db_entry.valid?
+        db_entry.save
         puts "Saved: #{title_short}" if db_entry.persisted?
       else
         puts "Already exists: #{title_short}"
