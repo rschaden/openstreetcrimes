@@ -20,7 +20,7 @@ class RawCrimes < ActiveRecord::Base
     street = Osc::ParseFeed.street(text)
     district = Osc::ParseFeed.district(title)
 
-    "#{street} #{district} Berlin".strip
+    "#{street} #{district} Berlin".squish
   end
 
   def self.update_from_feed
