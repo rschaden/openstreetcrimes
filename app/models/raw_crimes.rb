@@ -1,9 +1,18 @@
+require 'parse_feed'
+
 class RawCrimes < ActiveRecord::Base
   attr_accessible :date, :guid, :link, :text, :title
 
   validates :guid, presence: true, uniqueness: true
 
   BERLIN_POLIZEI_FEED_URL = "http://www.berlin.de/polizei/presse-fahndung/_rss_presse.xml"
+
+  def location_string
+    street = Osc::ParseFeed.street(text)
+    district = Osc::ParseFeed.district(title)
+
+    "#{street} #{district} Berlin".strip
+  end
 
   def self.update_from_feed
     feed = Feedzirra::Feed.fetch_and_parse(BERLIN_POLIZEI_FEED_URL)
