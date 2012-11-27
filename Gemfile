@@ -9,6 +9,7 @@ gem 'feedzirra'
 gem 'pg'
 gem 'rgeo'
 gem "rgeo-activerecord"
+gem 'squeel'
 gem 'rb-readline'
 gem 'geocoder'
 gem 'activerecord-postgis-adapter'
