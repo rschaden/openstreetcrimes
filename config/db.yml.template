@@ -1,5 +1,7 @@
 development: &defaults
   adapter: postgis
+  schema_search_path: "public"
+  postgis_extension: true
   database: openstreetcrimes_dev
   host: localhost
   username: user
