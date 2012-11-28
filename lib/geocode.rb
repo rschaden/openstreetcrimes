@@ -6,7 +6,7 @@ module Osc
       point = Geocoder.coordinates(location)
       return nil if point.nil?
 
-      factory = RGeo::Geographic.simple_mercator_factory
+      factory = Osc::GEOFACTORY
 
       factory.point(point.second, point.first)
     end
