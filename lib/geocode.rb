@@ -8,7 +8,7 @@ module Osc
 
       factory = Osc::GEOFACTORY
 
-      factory.point(point.second, point.first)
+      factory.point(point.second, point.first).projection
     end
   end
 end

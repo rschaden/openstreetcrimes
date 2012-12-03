@@ -4,5 +4,5 @@ class Crime < ActiveRecord::Base
 
   attr_accessible :date, :description, :location
 
-  set_rgeo_factory_for_column(:location, Osc::GEOFACTORY)
+  set_rgeo_factory_for_column(:location, Osc::GEOFACTORY.projection_factory)
 end

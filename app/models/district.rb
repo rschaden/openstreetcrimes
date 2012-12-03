@@ -3,5 +3,5 @@ class District < ActiveRecord::Base
 
   attr_accessible :name, :area
 
-  set_rgeo_factory_for_column(:area, Osc::GEOFACTORY)
+  set_rgeo_factory_for_column(:area, Osc::GEOFACTORY.projection_factory)
 end

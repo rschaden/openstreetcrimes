@@ -14,9 +14,10 @@
 
         function init(){
             map = new OpenLayers.Map('map');
-            var layer = new OpenLayers.Layer.WMS( "OpenLayers WMS",
-                    "http://vmap0.tiles.osgeo.org/wms/vmap0", {layers: 'basic'} );
-            map.addLayer(layer);
+            map.addLayer(new OpenLayers.Layer.OSM());
+            // var layer = new OpenLayers.Layer.WMS( "OpenLayers WMS",
+            //         "http://vmap0.tiles.osgeo.org/wms/vmap0", {layers: 'basic'} );
+            // map.addLayer(layer);
 
             // allow testing of specific renderers via "?renderer=Canvas", etc
             var renderer = OpenLayers.Util.getParameters(window.location.href).renderer;
@@ -68,14 +69,14 @@
                 renderers: renderer
             });
 
-            var point = new OpenLayers.Geometry.Point(<%= "#{@lon}, #{@lat}" %>);
+            var point = new OpenLayers.Geometry.Point(<%= "#{@center.x}, #{@center.y}" %>);
 
             var wkt_parser = new OpenLayers.Format.WKT();
 
             <% @districts.each_with_index do |district, i| %>
-              var poly = '<%= district %>'
-              wkt_polygon = wkt_parser.read(poly)
-              wkt_polygon.style = style_blue
+              var poly = '<%= district %>';
+              wkt_polygon = wkt_parser.read(poly);
+              wkt_polygon.style = style_blue;
               vectorLayer.addFeatures([wkt_polygon]);
             <% end %>
 

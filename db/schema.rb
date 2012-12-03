@@ -24,9 +24,9 @@ ActiveRecord::Schema.define(:version => 20121127213101) do
   create_table "crimes", :force => true do |t|
     t.string   "description"
     t.date     "date"
-    t.spatial  "location",      :limit => {:srid=>4326, :type=>"point", :geographic=>true}
-    t.datetime "created_at",                                                                :null => false
-    t.datetime "updated_at",                                                                :null => false
+    t.datetime "created_at",                                               :null => false
+    t.datetime "updated_at",                                               :null => false
+    t.spatial  "location",      :limit => {:srid=>900913, :type=>"point"}
     t.integer  "crime_type_id"
     t.integer  "district_id"
   end
@@ -35,23 +35,12 @@ ActiveRecord::Schema.define(:version => 20121127213101) do
 
   create_table "districts", :force => true do |t|
     t.string   "name"
-    t.spatial  "area",       :limit => {:srid=>4326, :type=>"polygon", :geographic=>true}
-    t.datetime "created_at",                                                               :null => false
-    t.datetime "updated_at",                                                               :null => false
+    t.datetime "created_at",                                              :null => false
+    t.datetime "updated_at",                                              :null => false
+    t.spatial  "area",       :limit => {:srid=>900913, :type=>"polygon"}
   end
 
   add_index "districts", ["area"], :name => "index_districts_on_area", :spatial => true
-
-  create_table "layer", :id => false, :force => true do |t|
-    t.integer "topology_id",                   :null => false
-    t.integer "layer_id",                      :null => false
-    t.string  "schema_name",                   :null => false
-    t.string  "table_name",                    :null => false
-    t.string  "feature_column",                :null => false
-    t.integer "feature_type",                  :null => false
-    t.integer "level",          :default => 0, :null => false
-    t.integer "child_id"
-  end
 
   create_table "planet_osm_line", :id => false, :force => true do |t|
     t.integer "osm_id",             :limit => 8
@@ -120,7 +109,7 @@ ActiveRecord::Schema.define(:version => 20121127213101) do
     t.text    "wood"
     t.integer "z_order"
     t.float   "way_area"
-    t.spatial "way",                :limit => {:srid=>4326, :type=>"line_string"}
+    t.spatial "way",                :limit => {:srid=>900913, :type=>"line_string"}
   end
 
   add_index "planet_osm_line", ["way"], :name => "planet_osm_line_index", :spatial => true
@@ -193,7 +182,7 @@ ActiveRecord::Schema.define(:version => 20121127213101) do
     t.text    "width"
     t.text    "wood"
     t.integer "z_order"
-    t.spatial "way",                :limit => {:srid=>4326, :type=>"point"}
+    t.spatial "way",                :limit => {:srid=>900913, :type=>"point"}
   end
 
   add_index "planet_osm_point", ["way"], :name => "planet_osm_point_index", :spatial => true
@@ -265,7 +254,7 @@ ActiveRecord::Schema.define(:version => 20121127213101) do
     t.text    "wood"
     t.integer "z_order"
     t.float   "way_area"
-    t.spatial "way",                :limit => {:srid=>4326, :type=>"geometry"}
+    t.spatial "way",                :limit => {:srid=>900913, :type=>"geometry"}
   end
 
   add_index "planet_osm_polygon", ["way"], :name => "planet_osm_polygon_index", :spatial => true
@@ -337,7 +326,7 @@ ActiveRecord::Schema.define(:version => 20121127213101) do
     t.text    "wood"
     t.integer "z_order"
     t.float   "way_area"
-    t.spatial "way",                :limit => {:srid=>4326, :type=>"line_string"}
+    t.spatial "way",                :limit => {:srid=>900913, :type=>"line_string"}
   end
 
   add_index "planet_osm_roads", ["way"], :name => "planet_osm_roads_index", :spatial => true
@@ -350,13 +339,6 @@ ActiveRecord::Schema.define(:version => 20121127213101) do
     t.text     "text"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-  end
-
-  create_table "topology", :force => true do |t|
-    t.string  "name",                         :null => false
-    t.integer "srid",                         :null => false
-    t.float   "precision",                    :null => false
-    t.boolean "hasz",      :default => false, :null => false
   end
 
 end
