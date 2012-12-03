@@ -1,4 +1,5 @@
 Openstreetcrimes::Application.routes.draw do
+  match 'maps' => 'maps#index'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

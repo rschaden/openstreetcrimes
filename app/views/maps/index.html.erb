@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>OpenLayers: Vector Features</title>
+    <link rel="stylesheet" href="openlayers1.css" type="text/css">
+    <link rel="stylesheet" href="openlayers2.css" type="text/css">
+    <script src="http://www.openlayers.org/api/OpenLayers.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        var map;
+
+        function init(){
+            map = new OpenLayers.Map('map');
+            var layer = new OpenLayers.Layer.WMS( "OpenLayers WMS",
+                    "http://vmap0.tiles.osgeo.org/wms/vmap0", {layers: 'basic'} );
+            map.addLayer(layer);
+
+            // allow testing of specific renderers via "?renderer=Canvas", etc
+            var renderer = OpenLayers.Util.getParameters(window.location.href).renderer;
+            renderer = (renderer) ? [renderer] : OpenLayers.Layer.Vector.prototype.renderers;
+
+            /*
+             * Layer style
+             */
+            // we want opaque external graphics and non-opaque internal graphics
+            var layer_style = OpenLayers.Util.extend({}, OpenLayers.Feature.Vector.style['default']);
+            layer_style.fillOpacity = 0.3;
+            layer_style.graphicOpacity = 1;
+
+            /*
+             * Blue style
+             */
+            var style_blue = OpenLayers.Util.extend({}, layer_style);
+            style_blue.strokeColor = "blue";
+            style_blue.fillColor = "blue";
+            style_blue.graphicName = "star";
+            style_blue.pointRadius = 10;
+            style_blue.strokeWidth = 1;
+            style_blue.rotation = 45;
+            style_blue.strokeLinecap = "butt";
+
+            /*
+             * Mark style
+             */
+            var style_mark = OpenLayers.Util.extend({}, OpenLayers.Feature.Vector.style['default']);
+            // each of the three lines below means the same, if only one of
+            // them is active: the image will have a size of 24px, and the
+            // aspect ratio will be kept
+            // style_mark.pointRadius = 12;
+            // style_mark.graphicHeight = 24;
+            // style_mark.graphicWidth = 24;
+
+            // if graphicWidth and graphicHeight are both set, the aspect ratio
+            // of the image will be ignored
+            style_mark.graphicWidth = 24;
+            style_mark.graphicHeight = 20;
+            style_mark.graphicXOffset = 10; // default is -(style_mark.graphicWidth/2);
+            style_mark.graphicYOffset = -style_mark.graphicHeight;
+            style_mark.externalGraphic = "../img/marker.png";
+            // title only works in Firefox and Internet Explorer
+            style_mark.title = "this is a test tooltip";
+
+            var vectorLayer = new OpenLayers.Layer.Vector("Simple Geometry", {
+                style: layer_style,
+                renderers: renderer
+            });
+
+            var point = new OpenLayers.Geometry.Point(<%= "#{@lon}, #{@lat}" %>);
+
+            var wkt_parser = new OpenLayers.Format.WKT();
+
+            <% @districts.each_with_index do |district, i| %>
+              var poly = '<%= district %>'
+              wkt_polygon = wkt_parser.read(poly)
+              wkt_polygon.style = style_blue
+              vectorLayer.addFeatures([wkt_polygon]);
+            <% end %>
+
+            map.addLayer(vectorLayer);
+            map.setCenter(new OpenLayers.LonLat(point.x, point.y), 10);
+        }
+    </script>
+  </head>
+  <body onload="init()">
+  <h1 id="title">Drawing Simple Vector Features Example
+  (<a href="http://openlayers.org/dev/examples/vector-features.html" target="blank">Source</a>)</h1>
+
+<div id="tags">
+    vector, feature, light
+</div>
+<p id="shortdesc">
+    Shows the use of the shows drawing simple vector features, in different styles.
+</p>
+<div id="map" class="smallmap"></div>
+<div id="docs">
+    <p>This example shows drawing simple vector features -- point, line, polygon
+       in different styles, created 'manually', by constructing the entire style
+       object, via 'copy', extending the default style object, and by
+       inheriting the default style from the layer.</p>
+    <p>It also shows how to use external graphic files for point features
+       and how to set their size: If either graphicWidth or graphicHeight is set,
+       the aspect ratio of the image will be respected. If both graphicWidth and
+       graphicHeight are set, it will be ignored. Alternatively, if graphicWidth
+       and graphicHeight are omitted, pointRadius will be used to set the size
+       of the image, which will then be twice the value of pointRadius with the
+       original aspect ratio.</p>
+       <p><b>TODO:</b> Use OSM mapnik as base map, take care with projections (we should maybe
+       use the default OSM projection in our database and datamodel). <br />
+       use Coffescript and HAML</p>
+</div>
+
+  </body>
+</html>
+
+
