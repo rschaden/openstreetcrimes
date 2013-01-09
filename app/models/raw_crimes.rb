@@ -1,7 +1,7 @@
 require 'parse_feed'
 require 'geocode'
 
-class RawCrimes < ActiveRecord::Base
+class RawCrime < ActiveRecord::Base
   attr_accessible :date, :guid, :link, :text, :title
 
   validates :guid, presence: true, uniqueness: true
@@ -35,7 +35,7 @@ class RawCrimes < ActiveRecord::Base
       content_node = doc.css("#bomain_content").first rescue Nokogiri::XML::NodeSet.new
       content_node.set_attribute("id", unique_id)
 
-      db_entry = RawCrimes.new(
+      db_entry = RawCrime.new(
         guid: unique_id,
         title: entry.title,
         link: entry.url,
