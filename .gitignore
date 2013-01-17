@@ -3,3 +3,5 @@ log/*
 config/database.yml
 .rspec
 test/
+db/*.osm.*
+tmp/
