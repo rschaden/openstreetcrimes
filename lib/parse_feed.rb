@@ -3,6 +3,8 @@ module Osc
   module ParseFeed
     extend self
 
+    include ActionView::Helpers::SanitizeHelper
+
     DISTRICTS = ["Mitte",
                  "Friedrichshain-Kreuzberg",
                  "Pankow",
