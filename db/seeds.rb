@@ -12,5 +12,5 @@ CrimeType.create({name: "Gewalt", regex: "(attack|Messer|Überfall|Sch[uü]ss|Ve
 CrimeType.create({name: "Diebstahl und Raub", regex: "(Dieb|Diebstahl|gestohlen|Raub\>|Räuber)", priority: 20})
 CrimeType.create({name: "Mord und Totschlag", regex: "(Mord|Tötung)", priority: 30})
 CrimeType.create({name: "Verkehrsdelikte", regex: "(Verkehrsunfall|ramm|Vorfahrt)", priority: 40})
-CrimeType.create({name: "Vandalismus", regex: "(Vandalismus|gresprengt|zerstört)", priority: 50})
+CrimeType.create({name: "Vandalismus", regex: "(Vandalismus|gesprengt|zerstört)", priority: 50})
 CrimeType.create({name: "Sonstiges", regex: "^.+$", priority: 99})
