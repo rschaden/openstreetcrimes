@@ -3,15 +3,14 @@ require 'spec_helper'
 
 describe RawCrime do
 
-  RAW_CRIME_FIELDS = [:guid, :title, :link, :text, :date]
-
-  RAW_CRIME_FIELDS.each do |field|
+  [:guid, :title, :link, :text, :date].each do |field|
     it { should respond_to field }
   end
 
+
   context 'validations' do
     before :each do
-      @raw_crime = FactoryGirl.create :raw_crimes
+      @raw_crime = FactoryGirl.create :raw_crime
     end
 
     it 'is valid' do
@@ -24,7 +23,7 @@ describe RawCrime do
     end
 
     it 'does not allow duplicate guids' do
-      duplicate_crime = FactoryGirl.build(:raw_crimes,
+      duplicate_crime = FactoryGirl.build(:raw_crime,
                                           guid: @raw_crime.guid)
       duplicate_crime.should_not be_valid
     end
@@ -32,7 +31,7 @@ describe RawCrime do
 
   context '#location_string' do
     before :each do
-      @raw_crime = FactoryGirl.create :raw_crimes
+      @raw_crime = FactoryGirl.create :raw_crime
     end
 
     [{ street: '', district: '' },

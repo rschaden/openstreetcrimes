@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :raw_crimes do
+  factory :raw_crime do
     sequence :guid do |n|
       "GUID#{n}"
     end
