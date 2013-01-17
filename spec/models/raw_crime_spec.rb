@@ -1,7 +1,7 @@
 require 'spec_helper'
 # require 'parse_feed'
 
-describe RawCrimes do
+describe RawCrime do
 
   RAW_CRIME_FIELDS = [:guid, :title, :link, :text, :date]
 

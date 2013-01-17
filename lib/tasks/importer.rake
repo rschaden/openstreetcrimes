@@ -4,6 +4,6 @@ require 'feedzirra'
 namespace :osc do
   desc "Fetches Berlin Police feeds"
   task :fetch_feeds => :environment do
-    RawCrimes.update_from_feed
+    RawCrime.update_from_feed
   end
 end
