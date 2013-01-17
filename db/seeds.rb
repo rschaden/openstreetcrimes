@@ -14,3 +14,18 @@ CrimeType.create({name: "Mord und Totschlag", regex: "(Mord|Tötung)", priority:
 CrimeType.create({name: "Verkehrsdelikte", regex: "(Verkehrsunfall|ramm|Vorfahrt)", priority: 40})
 CrimeType.create({name: "Vandalismus", regex: "(Vandalismus|gesprengt|zerstört)", priority: 50})
 CrimeType.create({name: "Sonstiges", regex: "^.+$", priority: 99})
+
+db_conf = Rails.configuration.database_configuration[Rails.env]
+berlin_osm_target = File.join Rails.root, "db/berlin.osm.bz2"
+
+unless File.exists? berlin_osm_target
+  `wget -O #{berlin_osm_target} http://download.geofabrik.de/openstreetmap/europe/germany/berlin.osm.bz2`
+  `osm2pgsql -d #{db_conf['database']} #{berlin_osm_target}`
+
+  District.delete_all
+  sql = "INSERT INTO districts(name, area, created_at, updated_at) SELECT name, way, NOW(),NOW() FROM planet_osm_polygon WHERE boundary='administrative' AND admin_level='9' AND place='borough'"
+  ActiveRecord::Base.establish_connection
+  ActiveRecord::Base.connection.execute(sql)
+end
+
+
