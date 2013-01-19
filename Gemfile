@@ -11,9 +11,10 @@ gem 'rgeo'
 gem "rgeo-activerecord"
 gem 'squeel'
 gem 'rb-readline'
-gem 'geocoder'
+gem 'geocoder', '1.1.6'
 gem 'activerecord-postgis-adapter'
 gem 'nokogiri'
+gem 'redis'
 # gem 'open-uri'
 
 # Gems used only for assets and not required
