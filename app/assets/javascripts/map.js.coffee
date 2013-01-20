@@ -3,9 +3,9 @@ $(document).ready ->
 
 Map =
   initialize: ->
-    districts =  $('#districts').data('district')
-    center_x =  $('#districts').data('center-x')
-    center_y =  $('#districts').data('center-y')
+    districts =  $('#map').data('district')
+    center_x =  $('#map').data('center-x')
+    center_y =  $('#map').data('center-y')
 
     map = new OpenLayers.Map 'map'
     map.addLayer(new OpenLayers.Layer.OSM());
