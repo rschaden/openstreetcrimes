@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121127213101) do
+ActiveRecord::Schema.define(:version => 20130120125102) do
 
   create_table "crime_types", :force => true do |t|
     t.string   "name",                           :null => false
@@ -26,9 +26,9 @@ ActiveRecord::Schema.define(:version => 20121127213101) do
     t.date     "date"
     t.datetime "created_at",                                               :null => false
     t.datetime "updated_at",                                               :null => false
-    t.spatial  "location",      :limit => {:srid=>900913, :type=>"point"}
     t.integer  "crime_type_id"
     t.integer  "district_id"
+    t.spatial  "location",      :limit => {:srid=>900913, :type=>"point"}
   end
 
   add_index "crimes", ["location"], :name => "index_crimes_on_location", :spatial => true
@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(:version => 20121127213101) do
   add_index "districts", ["area"], :name => "index_districts_on_area", :spatial => true
 
   create_table "planet_osm_line", :id => false, :force => true do |t|
-    t.integer "osm_id",             :limit => 8
+    t.integer "osm_id"
     t.text    "access"
     t.text    "addr:housename"
     t.text    "addr:housenumber"
@@ -115,7 +115,7 @@ ActiveRecord::Schema.define(:version => 20121127213101) do
   add_index "planet_osm_line", ["way"], :name => "planet_osm_line_index", :spatial => true
 
   create_table "planet_osm_point", :id => false, :force => true do |t|
-    t.integer "osm_id",             :limit => 8
+    t.integer "osm_id"
     t.text    "access"
     t.text    "addr:housename"
     t.text    "addr:housenumber"
@@ -188,7 +188,7 @@ ActiveRecord::Schema.define(:version => 20121127213101) do
   add_index "planet_osm_point", ["way"], :name => "planet_osm_point_index", :spatial => true
 
   create_table "planet_osm_polygon", :id => false, :force => true do |t|
-    t.integer "osm_id",             :limit => 8
+    t.integer "osm_id"
     t.text    "access"
     t.text    "addr:housename"
     t.text    "addr:housenumber"
@@ -260,7 +260,7 @@ ActiveRecord::Schema.define(:version => 20121127213101) do
   add_index "planet_osm_polygon", ["way"], :name => "planet_osm_polygon_index", :spatial => true
 
   create_table "planet_osm_roads", :id => false, :force => true do |t|
-    t.integer "osm_id",             :limit => 8
+    t.integer "osm_id"
     t.text    "access"
     t.text    "addr:housename"
     t.text    "addr:housenumber"
@@ -331,8 +331,8 @@ ActiveRecord::Schema.define(:version => 20121127213101) do
 
   add_index "planet_osm_roads", ["way"], :name => "planet_osm_roads_index", :spatial => true
 
-  create_table "raw_crimes", :force => true do |t|
-    t.text     "guid"
+  create_table "raw_crimes", :id => false, :force => true do |t|
+    t.text     "guid",       :null => false
     t.text     "title"
     t.text     "link"
     t.datetime "date"
