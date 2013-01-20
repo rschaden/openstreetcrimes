@@ -22,7 +22,7 @@ Map =
     map.addLayer(vectorLayer)
 
     test_data = @.get_test_data()
-    heatmapLayer = new OpenLayers.Layer.Heatmap("Heatmap Layer", map, test_data, {visible: true, radius: 10}, {isBaseLayer: false, opacity: 0.3, projection: new OpenLayers.Projection("EPSG:4326")})
+    heatmapLayer = new OpenLayers.Layer.Heatmap("Heatmap Layer", map, test_data, {visible: true, radius: 15}, {isBaseLayer: false, opacity: 0.3, projection: new OpenLayers.Projection("EPSG:4326")})
     map.addLayer(heatmapLayer)
 
     map.setCenter(new OpenLayers.LonLat(center_x, center_y), 10);
