@@ -1,7 +1,7 @@
 $(document).ready ->
-  Map.initialize()
+  OsmHeatMap.initialize()
 
-Map =
+OsmHeatMap =
   initialize: ->
     districts =  $('#map').data('district')
     center_x =  $('#map').data('center-x')
@@ -14,7 +14,7 @@ Map =
     renderer = (if (renderer) then [renderer] else OpenLayers.Layer.Vector::renderers)
 
     layer_style = @.get_layer_style()
-    style_blue = @.get_style("blue", layer_style)
+    style_blue = @.get_style("#0000ff", layer_style)
 
     vectorLayer = new OpenLayers.Layer.Vector("Berlin Districts",  { style: layer_style, renderers: renderer } )
     district_features = @.get_district_features(districts, style_blue)
