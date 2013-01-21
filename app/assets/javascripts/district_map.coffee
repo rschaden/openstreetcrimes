@@ -40,14 +40,13 @@ Map =
   get_district_features: (districts, layer_style) ->
     wkt_parser = new OpenLayers.Format.WKT()
     features = []
-    colors = ['#ff0000', '#ffa500', '#ffff00', '#00ff00']
+    colors = ['#00ff00', '#ffff00', '#ffa500', '#ff0000']
 
     for district in districts
-      poly = district['area']
-      wkt_polygon = wkt_parser.read(poly)
-      color = colors[Math.floor(Math.random()*colors.length)]
+      wkt_polygon = wkt_parser.read(district['area'])
+
+      color = colors[Math.floor(district['count'] / 25)]
       style = @.get_style(color, layer_style)
       wkt_polygon.style = style
       features.push wkt_polygon
     features
-
