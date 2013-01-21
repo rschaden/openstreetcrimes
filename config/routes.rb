@@ -1,5 +1,6 @@
 Openstreetcrimes::Application.routes.draw do
   match 'maps' => 'maps#index'
+  match 'district_heatmap' => 'maps#district_heatmap'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
