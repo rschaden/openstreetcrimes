@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130120125102) do
+ActiveRecord::Schema.define(:version => 20130122115018) do
 
   create_table "crime_types", :force => true do |t|
     t.string   "name",                           :null => false
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(:version => 20130120125102) do
     t.datetime "created_at",                                              :null => false
     t.datetime "updated_at",                                              :null => false
     t.spatial  "area",       :limit => {:srid=>900913, :type=>"polygon"}
+    t.integer  "population"
   end
 
   add_index "districts", ["area"], :name => "index_districts_on_area", :spatial => true

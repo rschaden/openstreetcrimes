@@ -28,4 +28,19 @@ unless File.exists? berlin_osm_target
   ActiveRecord::Base.connection.execute(sql)
 end
 
-
+#population data taken from
+#http://www.berlin.de/berlin-im-ueberblick/politik/bezirke.de.html
+{ 'Mitte' => 334465,
+  'Friedrichshain-Kreuzberg' => 270873,
+  'Pankow' => 372295,
+  'Charlottenburg-Wilmersdorf' => 320835,
+  'Spandau' => 226914,
+  'Steglitz-Zehlendorf' => 295950,
+  'Tempelhof-Schöneberg' => 336527,
+  'Neukölln' => 313394,
+  'Treptow-Köpenick' => 242957,
+  'Marzahn-Hellersdorf' => 250713,
+  'Lichtenberg' => 262192,
+  'Reinickendorf' => 241824}.each do |district_name, population|
+    District.where(name: district_name).first.update_attribute(:population, population)
+  end
