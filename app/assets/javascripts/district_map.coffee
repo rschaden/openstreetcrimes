@@ -38,14 +38,21 @@ Map =
     style
 
   get_district_features: (districts, layer_style) ->
+    quantils = $('#map').data('quantils')
     wkt_parser = new OpenLayers.Format.WKT()
     features = []
-    colors = ['#00ff00', '#ffff00', '#ffa500', '#ff0000']
+    colors = ['#00ff00', '#ffff00', '#df7401', '#df0101']
 
     for district in districts
       wkt_polygon = wkt_parser.read(district['area'])
 
-      color = colors[Math.floor(district['count'] / 25)]
+      i = 0
+      for quantil in quantils
+        if district['count'] <= quantil
+          break
+        i++
+
+      color = colors[i]
       style = @.get_style(color, layer_style)
       wkt_polygon.style = style
       features.push wkt_polygon
