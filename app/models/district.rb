@@ -8,4 +8,8 @@ class District < ActiveRecord::Base
   def crime_count
     District.where(id: id).joins(:crimes).group(:name).count.values.first || 0
   end
+
+  def weighted_crime_count
+    crime_count * 100000 / population
+  end
 end
