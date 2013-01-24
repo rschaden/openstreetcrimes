@@ -10,14 +10,17 @@ class MapsController < ApplicationController
   def district_heatmap
     @center =  Osc::Geocode.get_point("Berlin")
     #add random count (0-100) to districts
-    @districts = District.all.map{ |district| district.attributes.merge('count' => rand(100)) }
+    @districts = District.all.map do |district|
+      # district.attributes.merge('count' => district.crime_count,
+      #                          'weighted_count' => district.weighted_crime_count)
+      district.attributes.merge('count' => rand(100),
+                               'weighted_count' => rand(20))
+    end
 
     district_counts = @districts.map { |district| district['count'] }
-    mean = get_mean district_counts
-    standard_deviation = get_standard_deviation district_counts
-    @quantils = [(mean-standard_deviation).floor,
-                (mean).floor,
-                (mean+standard_deviation).floor]
+    weighted_counts = @districts.map { |district| district['weighted_count'] }
+    @quantils = get_quantil_hash(district_counts, weighted_counts)
+    @colors = ['#00ff00', '#ffff00', '#df7401', '#df0101']
 
     render layout: 'maps'
   end
