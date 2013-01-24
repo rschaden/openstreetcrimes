@@ -23,6 +23,22 @@ class MapsController < ApplicationController
   end
 
   private
+  def get_quantil_hash(district_counts, weighted_counts)
+    result = {}
+    result[:normal] = get_quantils(district_counts, 0)
+    result[:weighted] = get_quantils(weighted_counts, 2)
+
+    result
+  end
+
+  def get_quantils(list, precision)
+    mean = get_mean list
+    standard_deviation = get_standard_deviation list
+    [(mean-standard_deviation).round(precision),
+     (mean).round(precision),
+     (mean+standard_deviation).round(precision)]
+  end
+
   def get_mean(list)
     list.inject(:+).to_f / list.size
   end
