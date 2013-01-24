@@ -1,38 +1,63 @@
 $(document).ready ->
-  Map.initialize()
-  $('button').click -> Map.toggle_district_layer()
+  DistrictMap.initialize()
+  $('button').click -> MapControls.toggle_district_layer()
 
-Map =
+DistrictMap =
   map: undefined
   district_layer: undefined
-  initialize: (weighted = false) ->
-    center_x =  $('#map').data('center-x')
-    center_y =  $('#map').data('center-y')
 
+  initialize: ->
     @.map = new OpenLayers.Map 'map'
     @.map.addLayer(new OpenLayers.Layer.OSM());
 
-    @.district_layer = new OpenLayers.Layer.Vector("Berlin Districts",  { style: @.layer_style, renderers: @.renderer() } )
+    @.add_district_layer()
 
-    district_features = @.district_features(weighted)
-    @.district_layer.addFeatures(district_features)
-    @.map.addLayer(@.district_layer)
-
+    center_x =  $('#map').data('center-x')
+    center_y =  $('#map').data('center-y')
     @.map.setCenter(new OpenLayers.LonLat(center_x, center_y), 10);
 
-  toggle_district_layer: ->
+
+  add_district_layer: ->
+    @.district_layer = new OpenLayers.Layer.Vector("Berlin Districts",
+      { style: MapStyle.layer_style(),
+      renderers: MapStyle.renderer() } ) unless @.district_layer
     @.district_layer.removeAllFeatures()
-    button = $('#button')
-    if button.text() == "Change to Weighted"
-      district_features = @.district_features(true)
-      button.text('Change to Normal')
+    @.district_layer.addFeatures(MapData.district_features())
+    @.map.addLayer(@.district_layer)
+    MapControls.update_legend()
+
+MapData =
+  weighted: false
+  district_features: ->
+    districts =  $('#map').data('district')
+    relevant_count = (if (@.weighted) then 'weighted_count' else 'count')
+
+    wkt_parser = new OpenLayers.Format.WKT()
+    features = []
+
+    for district in districts
+      style = MapStyle.style(@.district_color(district[relevant_count]))
+      wkt_polygon = wkt_parser.read(district['area'])
+      wkt_polygon.style = style
+      features.push wkt_polygon
+    features
+
+  district_color: (count) ->
+    colors =  $('#map').data('colors')
+    i = 0
+    for quantil in @.quantils()
+      if count <= quantil
+        break
+      i++
+    colors[i]
+
+  quantils: ->
+    if @.weighted
+      return $('#map').data('quantils')['weighted']
     else
-      button.text('Change to Weighted')
-      district_features = @.district_features(false)
+      return $('#map').data('quantils')['normal']
 
-    @district_layer.addFeatures(district_features)
-    @.district_layer.redraw()
-
+MapStyle =
   renderer: ->
     renderer = OpenLayers.Util.getParameters(window.location.href).renderer
     renderer = (if (renderer) then [renderer] else OpenLayers.Layer.Vector::renderers)
@@ -49,40 +74,21 @@ Map =
     style.fillColor = color
     style
 
-  district_features: (weighted) ->
-    districts =  $('#map').data('district')
-    if weighted
-      quantils = $('#map').data('quantils')['weighted']
-      relevant_count = 'weighted_count'
+MapControls =
+  toggle_district_layer: ->
+    button = $('#button')
+    if button.text() == "Change to Weighted"
+      MapData.weighted = true
+      button.text('Change to Normal')
     else
-      quantils = $('#map').data('quantils')['normal']
-      relevant_count = 'count'
-    colors =  $('#map').data('colors')
+      MapData.weighted = false
+      button.text('Change to Weighted')
+    DistrictMap.add_district_layer()
 
-    wkt_parser = new OpenLayers.Format.WKT()
-    features = []
-
-    for district in districts
-      wkt_polygon = wkt_parser.read(district['area'])
-
-      i = 0
-      for quantil in quantils
-        if district[relevant_count] <= quantil
-          break
-        i++
-
-      color = colors[i]
-      style = @.style(color)
-      wkt_polygon.style = style
-      features.push wkt_polygon
-      @.update_legend(quantils)
-    features
-
-  update_legend: (quantils) ->
+  update_legend: ->
     i = 0
+    quantils = MapData.quantils()
     for quantil in quantils
       $("#quantil#{i}").text("<=#{quantil}")
       i++
     $("#quantil3").text("> #{quantils[2]}")
-
-
