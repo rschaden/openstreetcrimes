@@ -2,7 +2,7 @@ class CreateDistricts < ActiveRecord::Migration
   def change
     create_table :districts do |t|
       t.string :name
-      t.polygon :area, :srid => 900913
+      t.polygon :area, :srid => 3785
 
       t.timestamps
     end

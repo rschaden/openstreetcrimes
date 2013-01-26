@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130122115018) do
+ActiveRecord::Schema.define(:version => 20130126172609) do
 
   create_table "crime_types", :force => true do |t|
     t.string   "name",                           :null => false
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(:version => 20130122115018) do
     t.datetime "updated_at",                                               :null => false
     t.integer  "crime_type_id"
     t.integer  "district_id"
-    t.spatial  "location",      :limit => {:srid=>900913, :type=>"point"}
+    t.spatial  "location",      :limit => {:srid=>3785, :type=>"point"}
   end
 
   add_index "crimes", ["location"], :name => "index_crimes_on_location", :spatial => true
@@ -333,13 +333,14 @@ ActiveRecord::Schema.define(:version => 20130122115018) do
   add_index "planet_osm_roads", ["way"], :name => "planet_osm_roads_index", :spatial => true
 
   create_table "raw_crimes", :id => false, :force => true do |t|
-    t.text     "guid",       :null => false
+    t.text     "guid",                          :null => false
     t.text     "title"
     t.text     "link"
     t.datetime "date"
     t.text     "text"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.boolean  "converted",  :default => false
   end
 
 end
