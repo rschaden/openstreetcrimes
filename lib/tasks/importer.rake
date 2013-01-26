@@ -1,5 +1,4 @@
 require 'feedzirra'
-# require "#{Rails.root}/app/models/raw_crimes"
 
 namespace :osc do
   desc "Fetches Berlin Police feeds"
