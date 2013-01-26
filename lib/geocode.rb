@@ -3,7 +3,8 @@ require 'geocoder'
 module Osc
   class Geocode
     def self.get_point(location)
-      get_lonlat(location).projection
+      lonlat = get_lonlat(location)
+      lonlat.projection if lonlat
     end
 
     def self.get_lonlat(location)
