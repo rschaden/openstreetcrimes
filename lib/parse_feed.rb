@@ -18,12 +18,15 @@ module Osc
                  "Lichtenberg",
                  "Reinickendorf"]
 
-    STREET_SUFFIXES = ["straße",
+    STREET_SIGNIFIER = ["stra[ss|ß]e",
                        "str",
                        "weg",
                        "platz",
-                       "damm"]
-
+                       "damm",
+                        "ufer", "steg", "allee", "chaussee", "markt", "ring", "brücke"]
+    FIX_STREETS = [
+      "Unter den Linden", "Adlergestell"
+    ]
     def district(string)
       districts = get_districts(string)
       return "" if districts.empty?
@@ -38,20 +41,20 @@ module Osc
       streets.first
     end
 
+    # Awesome Regex: http://rubular.com/r/bVZyPD8tWG
+    def get_streets(string)
+      regex_street_signifier_lowercase = STREET_SIGNIFIER.join '|'
+      regex_street_signifier_capitalized = STREET_SIGNIFIER.map(&:capitalize).join '|'
+      monster_regexp = /((#{regex_street_signifier_capitalized}) de[r|s] (([0-9]+\. )?\p{Lu}\p{L}+ ?)+|#{FIX_STREETS.join('|')}|\p{Lu}[\p{L}-]+(#{regex_street_signifier_lowercase})|(\p{Lu}\p{L}+[ -])+\b ?(#{regex_street_signifier_capitalized}))/
+      matches = string.scan monster_regexp
+      return [] if matches.nil?
+      matches.uniq.map(&:first)
+    end
+
     private
     def get_districts(string)
       DISTRICTS.select { |district| string.match(district) }
     end
 
-    def get_streets(string)
-      return [] if string.nil?
-      STREET_SUFFIXES.map do |suffix|
-        street = "\\p{Word}*#{suffix}\\b"
-        cap_street = street.gsub("#{suffix}", "\\s#{suffix.capitalize}")
-        street_regexp = Regexp.new("(#{street}|#{cap_street})")
-          # require 'pry'; binding.pry
-          string.scan(street_regexp)
-      end.flatten.reject(&:empty?)
-    end
   end
 end
