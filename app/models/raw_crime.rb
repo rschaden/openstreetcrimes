@@ -12,14 +12,13 @@ class RawCrime < ActiveRecord::Base
   scope :converted, where(converted: true)
 
   def location
-    Osc::Geocode.get_point(location_string)
+    Osc::Geocode.raw_crime(self)
   end
 
-  def location_string
-    street = Osc::ParseFeed.street(text)
-    district = Osc::ParseFeed.district(title)
-
-    "#{street} #{district} Berlin".squish
+  def district
+    return nil unless location
+    districts = District.all
+    districts.select{ |district| district.area.contains? location }.first
   end
 
   def self.update_from_feed
