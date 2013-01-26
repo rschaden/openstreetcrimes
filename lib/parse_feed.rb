@@ -19,7 +19,7 @@ module Osc
                  "Reinickendorf"]
 
     STREET_SIGNIFIER = ["stra[ss|ß]e",
-                       "str",
+                       "str\.",
                        "weg",
                        "platz",
                        "damm",
@@ -27,6 +27,11 @@ module Osc
     FIX_STREETS = [
       "Unter den Linden", "Adlergestell"
     ]
+
+    STREET_PREFIXES = [
+      "Kleine[s|r]?", "Gro[ß|ss]e[r|s]?", "St\.", "Sankt", "Alte[r|s]?", "Neue[s|r]?", "Am", "Beim", "Unterm", "Hinter de[m|r]", "An de[r|m|n]"
+    ]
+
     def district(string)
       districts = get_districts(string)
       return "" if districts.empty?
@@ -45,13 +50,13 @@ module Osc
     def get_streets(string)
       regex_street_signifier_lowercase = STREET_SIGNIFIER.join '|'
       regex_street_signifier_capitalized = STREET_SIGNIFIER.map(&:capitalize).join '|'
-      monster_regexp = /((#{regex_street_signifier_capitalized}) de[r|s] (([0-9]+\. )?\p{Lu}\p{L}+ ?)+|#{FIX_STREETS.join('|')}|\p{Lu}[\p{L}-]+(#{regex_street_signifier_lowercase})|(\p{Lu}\p{L}+[ -])+\b ?(#{regex_street_signifier_capitalized}))/
+      regex_street_prefixes = STREET_PREFIXES.join '|'
+      monster_regexp = /(((#{regex_street_prefixes}) )?((#{regex_street_signifier_capitalized}) de[r|s] (([0-9]+\. )?\p{Lu}\p{L}+ ?)+|#{FIX_STREETS.join('|')}|\p{Lu}[\p{L}-]+(#{regex_street_signifier_lowercase})|(\p{L}+-)+(#{regex_street_signifier_capitalized})|\p{Lu}\p{L}+ (#{regex_street_signifier_capitalized}))\b)/
       matches = string.scan monster_regexp
       return [] if matches.nil?
-      matches.uniq.map(&:first)
+      matches.uniq.map(&:first).reject{ |m| m =~ /Gehweg|Richtung|(Vor|Park)platz/ }
     end
 
-    private
     def get_districts(string)
       DISTRICTS.select { |district| string.match(district) }
     end
