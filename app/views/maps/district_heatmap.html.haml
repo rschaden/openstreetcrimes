@@ -1,0 +1,26 @@
+=javascript_include_tag "district_map"
+%h1{id:"title"} Open Street Crimes - District Map
+
+= content_tag :div, '', id: 'map', class: 'smallmap', data: {district: @districts, center_x: @center.x, center_y: @center.y, quantils: @quantils, colors: @colors}
+%button{name: 'Toggle', id:"button"}Change to Weighted
+#docs
+  %table
+    %tr
+      %th Color
+      %th Value
+    - @quantils[:normal].each_with_index do |quantil, i|
+      %tr
+        %td{bgcolor:"#{@colors[i]}"}
+        %td{id:"quantil#{i}"}
+    %tr
+      %td{bgcolor:"#{@colors[3]}"}
+      %td{id:"quantil#{3}"}
+  %p Maybe put some statistics here
+  %table
+    %tr
+      %th Name
+      %th Count
+    - @districts.each do |district|
+      %tr
+        %td= district['name']
+        %td= district['count']
