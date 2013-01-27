@@ -17,7 +17,11 @@ module Osc
                           district: raw_crime.district,
                           location: location)
 
-        puts "Converted: #{raw_crime.short_title}" if crime.save
+        if crime.save
+          puts "Converted: #{raw_crime.short_title}"
+        else
+          puts "Already exists: #{raw_crime.short_title}"
+        end
       end
       raw_crime.update_attribute(:converted, true)
     end
