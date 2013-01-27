@@ -8,8 +8,8 @@ class RawCrime < ActiveRecord::Base
 
   BERLIN_POLIZEI_FEED_URL = "http://www.berlin.de/polizei/presse-fahndung/_rss_presse.xml"
 
-  scope :unconverted, where(converted: false)
   scope :converted, where(converted: true)
+  scope :unconverted, where(converted: false)
 
   def location
     Osc::Geocode.raw_crime(self)
