@@ -3,7 +3,9 @@ module Osc
     extend self
 
     def convert
-      RawCrime.unconverted.each do |raw_crime|
+      existing_crime_ids = Crime.all.map(&:guid)
+      unconverted = RawCrime.unconverted.reject { |raw_crime| existing_crime_ids.include? raw_crime.guid }
+      unconverted.each do |raw_crime|
         convert_crime(raw_crime)
       end
     end
@@ -20,7 +22,8 @@ module Osc
         if crime.save
           puts "Converted: #{raw_crime.short_title}"
         else
-          puts "Already exists: #{raw_crime.short_title}"
+          puts "Failed to save: #{raw_crime.short_title}"
+          puts crime.error_messages
         end
       end
       raw_crime.update_attribute(:converted, true)
