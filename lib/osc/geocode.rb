@@ -27,17 +27,29 @@ module Osc
 
     private
     def location(streets, districts)
+      lonlat = with_streets_and_districts(streets, districts)
+      return lonlat if lonlat
+
+      lonlat = with_streets(streets)
+    end
+
+
+    def with_streets_and_districts(streets, districts)
       streets.each do |street|
         districts.each do |district|
           lonlat = get_point(location_string(street, district))
           return lonlat if lonlat
           sleep 1
         end
-        if districts.empty?
-          lonlat = get_point(location_string(street))
-          return lonlat if lonlat
-          sleep 1
-        end
+      end
+      return nil
+    end
+
+    def with_streets(streets)
+      streets.each do |street|
+        lonlat = get_point(location_string(street))
+        return lonlat if lonlat
+        sleep 1
       end
       return nil
     end
