@@ -1,0 +1,14 @@
+!!! 5
+%html
+  %head
+    %title OpenStreetCrimes
+    = stylesheet_link_tag    "application", :media => "all"
+    = stylesheet_link_tag 'theme/default/style.css'
+    = javascript_include_tag "jquery"
+    = javascript_include_tag "OpenLayers.js"
+    = javascript_include_tag "heatmap.js"
+    = javascript_include_tag "heatmap-openlayers.js"
+    = csrf_meta_tags %>
+  %body
+    = yield %>
+
