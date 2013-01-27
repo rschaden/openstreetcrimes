@@ -10,6 +10,6 @@ class District < ActiveRecord::Base
   end
 
   def weighted_crime_count
-    crime_count * 100000 / population
+    crime_count * 100000.0 / population
   end
 end
