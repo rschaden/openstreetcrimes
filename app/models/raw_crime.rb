@@ -1,6 +1,3 @@
-require 'parse_feed'
-require 'geocode'
-
 class RawCrime < ActiveRecord::Base
   attr_accessible :date, :guid, :link, :text, :title
 
