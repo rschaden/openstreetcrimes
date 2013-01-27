@@ -19,13 +19,23 @@ module Osc
                  "Reinickendorf"]
 
     STREET_SIGNIFIER = ["stra(ss|ß)e",
-                       "str\.",
-                       "weg",
-                       "platz",
-                       "damm",
-                        "ufer", "steg", "allee", "chaussee", "markt", "ring", "brücke"]
+                        "str\.",
+                        "weg",
+                        "platz",
+                        "damm",
+                        "ufer",
+                        "steg",
+                        "allee",
+                        "chaussee",
+                        "markt",
+                        "ring",
+                        "brücke",
+                        "tor",
+                        "promenade",
+                        "park"]
+
     FIX_STREETS = [
-      "Unter den Linden", "Adlergestell"
+      "Unter den Linden", "Adlergestell", "Südstern", "Grosser Stern"
     ]
 
     STREET_PREFIXES = [
