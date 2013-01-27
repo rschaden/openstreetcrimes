@@ -11,10 +11,13 @@ module Osc
     def convert_crime(raw_crime)
       location = raw_crime.location
       if location
-        Crime.create(description: raw_crime.title,
-                     date: raw_crime.date,
-                     district: raw_crime.district,
-                     location: location)
+        crime = Crime.new(guid: raw_crime.guid,
+                          description: raw_crime.title,
+                          date: raw_crime.date,
+                          district: raw_crime.district,
+                          location: location)
+
+        puts "Converted: #{raw_crime.short_title}" if crime.save
       end
       raw_crime.update_attribute(:converted, true)
     end
