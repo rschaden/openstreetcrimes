@@ -28,6 +28,10 @@ class RawCrime < ActiveRecord::Base
     end
   end
 
+  def short_title
+    title.length < 60 ? title : "#{title.slice(0,60)}..."
+  end
+
   private
     def self.save_feed_entry entry
       unique_id = Digest::SHA1.hexdigest(entry.entry_id)
@@ -45,12 +49,11 @@ class RawCrime < ActiveRecord::Base
         text: content_node.to_html
       )
 
-      title_short = entry.title.length < 60 ? entry.title : "#{entry.title.slice(0,60)}..."
       if db_entry.valid?
         db_entry.save
-        puts "Saved: #{title_short}" if db_entry.persisted?
+        puts "Saved: #{db_entry.short_title}" if db_entry.persisted?
       else
-        puts "Already exists: #{title_short}"
+        puts "Already exists: #{db_entry.short_title}"
       end
     end
 end
