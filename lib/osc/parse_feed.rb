@@ -32,20 +32,6 @@ module Osc
       "Kleine[s|r]?", "Gro(ß|ss)e[r|s]?", "St\.", "Sankt", "Alte[r|s]?", "Neue[s|r]?", "Am", "Beim", "Unterm", "Hinter de[m|r]", "An de[r|m|n]"
     ]
 
-    def district(string)
-      districts = get_districts(string)
-      return "" if districts.empty?
-
-      districts.first
-    end
-
-    def street(string)
-      streets = get_streets(string)
-      return "" if streets.empty?
-
-      streets.first
-    end
-
     # Awesome Regex: http://rubular.com/r/bVZyPD8tWG
     def get_streets(string)
       regex_street_signifier_lowercase = STREET_SIGNIFIER.join '|'
