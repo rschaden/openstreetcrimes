@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130126172609) do
+ActiveRecord::Schema.define(:version => 20130126235140) do
 
   create_table "crime_types", :force => true do |t|
     t.string   "name",                           :null => false
@@ -21,14 +21,15 @@ ActiveRecord::Schema.define(:version => 20130126172609) do
     t.integer  "priority",   :default => 100
   end
 
-  create_table "crimes", :force => true do |t|
+  create_table "crimes", :id => false, :force => true do |t|
     t.string   "description"
     t.date     "date"
-    t.datetime "created_at",                                               :null => false
-    t.datetime "updated_at",                                               :null => false
+    t.datetime "created_at",                                             :null => false
+    t.datetime "updated_at",                                             :null => false
     t.integer  "crime_type_id"
     t.integer  "district_id"
     t.spatial  "location",      :limit => {:srid=>3785, :type=>"point"}
+    t.text     "guid"
   end
 
   add_index "crimes", ["location"], :name => "index_crimes_on_location", :spatial => true
@@ -37,8 +38,8 @@ ActiveRecord::Schema.define(:version => 20130126172609) do
     t.string   "name"
     t.datetime "created_at",                                              :null => false
     t.datetime "updated_at",                                              :null => false
-    t.spatial  "area",       :limit => {:srid=>900913, :type=>"polygon"}
     t.integer  "population"
+    t.spatial  "area",       :limit => {:srid=>900913, :type=>"polygon"}
   end
 
   add_index "districts", ["area"], :name => "index_districts_on_area", :spatial => true
