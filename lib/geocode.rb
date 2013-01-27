@@ -20,6 +20,11 @@ module Osc
       streets = Osc::ParseFeed.get_streets(raw_crime.text)
       districts = Osc::ParseFeed.get_streets(raw_crime.title)
 
+      self.location(streets, districts)
+    end
+
+    private
+    def self.location(streets, districts)
       streets.each do |street|
         districts.each do |district|
           lonlat = get_point(location_string(street, district))
