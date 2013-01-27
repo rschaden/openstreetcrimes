@@ -23,10 +23,10 @@ module Osc
           puts "Converted: #{raw_crime.short_title}"
         else
           puts "Failed to save: #{raw_crime.short_title}"
-          puts crime.error_messages
+          puts crime.errors.messages
         end
       end
-      raw_crime.update_attribute(:converted, true)
+      raw_crime.update_column(:converted, true)
     end
   end
 end

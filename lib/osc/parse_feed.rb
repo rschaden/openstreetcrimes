@@ -19,7 +19,7 @@ module Osc
                  "Reinickendorf"]
 
     STREET_SIGNIFIER = ["stra(ss|ß)e",
-                        "str\.",
+                        "str",
                         "weg",
                         "platz",
                         "damm",
