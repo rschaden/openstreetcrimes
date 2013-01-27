@@ -20,7 +20,7 @@ module Osc
 
     def raw_crime(raw_crime)
       streets = Osc::ParseFeed.get_streets(raw_crime.text)
-      districts = Osc::ParseFeed.get_streets(raw_crime.title)
+      districts = Osc::ParseFeed.get_districts(raw_crime.title)
 
       location(streets, districts)
     end
