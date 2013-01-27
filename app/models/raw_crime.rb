@@ -11,6 +11,10 @@ class RawCrime < ActiveRecord::Base
   scope :converted, where(converted: true)
   scope :unconverted, where(converted: false)
 
+  def self.reset_converted
+    RawCrime.all.each{ |raw_crime| raw_crime.update_attribute(:converted, false) }
+  end
+
   def location
     Osc::Geocode.raw_crime(self)
   end
