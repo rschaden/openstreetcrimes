@@ -21,8 +21,8 @@ OsmHeatMap =
     @.map.addLayer(vectorLayer)
 
   add_heatmap_layer: ->
-    test_data = MapData.test_data()
-    heatmapLayer = new OpenLayers.Layer.Heatmap("Heatmap Layer", @.map, test_data, {visible: true, radius: 15}, {isBaseLayer: false, opacity: 0.3, projection: new OpenLayers.Projection("EPSG:4326")})
+    crime_data = MapData.crime_data()
+    heatmapLayer = new OpenLayers.Layer.Heatmap("Heatmap Layer", @.map, crime_data, {visible: true, radius: 40}, {isBaseLayer: false, opacity: 0.3, projection: new OpenLayers.Projection("EPSG:4326")})
     @.map.addLayer(heatmapLayer)
 
 MapData =
@@ -37,20 +37,15 @@ MapData =
       features.push wkt_polygon
     features
 
-  test_data: ->
-    test_data =
-      max: 50,
+  crime_data: ->
+    crime_data =
+      max: 10,
       data: []
-    i = 0
-    while i < 500
-      lon = Math.random() * 0.7 + 13.110836
-      lat = Math.random() * 0.3 + 52.343206
-      c = Math.floor(Math.random() * 50)
-      test_data.data.push
-        lonlat: new OpenLayers.LonLat(lon, lat)
-        count: c
-      i++
-    test_data
+    crimes = $('#map').data('crimes')
+    for crime in crimes
+      crime_data.data.push
+        lonlat: new OpenLayers.LonLat(crime['lon'], crime['lat'])
+    crime_data
 
 MapStyle =
   renderer: ->
