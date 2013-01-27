@@ -1,4 +1,4 @@
-require 'crime_converter'
+require 'osc/crime_converter'
 
 namespace :osc do
   desc "Converts new RawCrimes"
