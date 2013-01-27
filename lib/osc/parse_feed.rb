@@ -18,7 +18,7 @@ module Osc
                  "Lichtenberg",
                  "Reinickendorf"]
 
-    STREET_SIGNIFIER = ["stra[ss|ß]e",
+    STREET_SIGNIFIER = ["stra(ss|ß)e",
                        "str\.",
                        "weg",
                        "platz",
@@ -29,7 +29,7 @@ module Osc
     ]
 
     STREET_PREFIXES = [
-      "Kleine[s|r]?", "Gro[ß|ss]e[r|s]?", "St\.", "Sankt", "Alte[r|s]?", "Neue[s|r]?", "Am", "Beim", "Unterm", "Hinter de[m|r]", "An de[r|m|n]"
+      "Kleine[s|r]?", "Gro(ß|ss)e[r|s]?", "St\.", "Sankt", "Alte[r|s]?", "Neue[s|r]?", "Am", "Beim", "Unterm", "Hinter de[m|r]", "An de[r|m|n]"
     ]
 
     def district(string)
