@@ -14,7 +14,7 @@ module Osc
                  "Tempelhof-Schöneberg",
                  "Neukölln",
                  "Treptow-Köpenick",
-                 "Marzahl-Hellersdorf",
+                 "Marzahn-Hellersdorf",
                  "Lichtenberg",
                  "Reinickendorf"]
 
