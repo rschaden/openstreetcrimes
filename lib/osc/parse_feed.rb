@@ -42,7 +42,7 @@ module Osc
       "Kleine[s|r]?", "Gro(ß|ss)e[r|s]?", "St\.", "Sankt", "Alte[r|s]?", "Neue[s|r]?", "Am", "Beim", "Unterm", "Hinter de[m|r]", "An de[r|m|n]"
     ]
 
-    # Awesome Regex: http://rubular.com/r/bVZyPD8tWG
+    # Awesome Regex: http://rubular.com/r/yoF4rOeKJy
     def get_streets(string)
       street_signifier_lowercase = STREET_SIGNIFIER.join '|'
       street_signifier_capitalized = STREET_SIGNIFIER.map(&:capitalize).join '|'
