@@ -3,7 +3,7 @@ class CreateCrimes < ActiveRecord::Migration
     create_table :crimes do |t|
       t.string :description
       t.date :date
-      t.point :location, :srid => 900913
+      t.point :location, :srid => 3785
 
       t.timestamps
     end

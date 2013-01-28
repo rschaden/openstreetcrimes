@@ -1,6 +1,3 @@
-require 'parse_feed'
-require 'geocode'
-
 class RawCrime < ActiveRecord::Base
   attr_accessible :date, :guid, :link, :text, :title
 
@@ -8,15 +5,21 @@ class RawCrime < ActiveRecord::Base
 
   BERLIN_POLIZEI_FEED_URL = "http://www.berlin.de/polizei/presse-fahndung/_rss_presse.xml"
 
-  def location
-    Osc::Geocode.get_point(location_string)
+  scope :converted, where(converted: true)
+  scope :unconverted, where(converted: false)
+
+  def self.reset_converted
+    RawCrime.all.each{ |raw_crime| raw_crime.update_attribute(:converted, false) }
   end
 
-  def location_string
-    street = Osc::ParseFeed.street(text)
-    district = Osc::ParseFeed.district(title)
+  def location
+    Osc::Geocode.raw_crime(self)
+  end
 
-    "#{street} #{district} Berlin".squish
+  def district
+    return nil unless location
+    districts = District.all
+    districts.select{ |district| district.area.contains? location }.first
   end
 
   def self.update_from_feed
@@ -24,6 +27,10 @@ class RawCrime < ActiveRecord::Base
     feed.entries.each do |entry|
       save_feed_entry entry
     end
+  end
+
+  def short_title
+    title.length < 60 ? title : "#{title.slice(0,60)}..."
   end
 
   private
@@ -43,12 +50,11 @@ class RawCrime < ActiveRecord::Base
         text: content_node.to_html
       )
 
-      title_short = entry.title.length < 60 ? entry.title : "#{entry.title.slice(0,60)}..."
       if db_entry.valid?
         db_entry.save
-        puts "Saved: #{title_short}" if db_entry.persisted?
+        puts "Saved: #{db_entry.short_title}" if db_entry.persisted?
       else
-        puts "Already exists: #{title_short}"
+        puts "Already exists: #{db_entry.short_title}"
       end
     end
 end

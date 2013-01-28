@@ -5,3 +5,4 @@ config/database.yml
 test/
 db/*.osm.*
 tmp/
+coverage/

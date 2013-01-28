@@ -1,8 +1,10 @@
-require 'geocode'
 class MapsController < ApplicationController
   def index
     @center =  Osc::Geocode.get_point("Berlin")
     @districts = District.all
+    @crimes = Crime.all.map { |crime| { description: crime.description,
+                                        lon: crime.lon,
+                                        lat: crime.lat }}
 
     render layout: 'maps'
   end
@@ -11,10 +13,8 @@ class MapsController < ApplicationController
     @center =  Osc::Geocode.get_point("Berlin")
     #add random count (0-100) to districts
     @districts = District.all.map do |district|
-      # district.attributes.merge('count' => district.crime_count,
-      #                          'weighted_count' => district.weighted_crime_count)
-      district.attributes.merge('count' => rand(100),
-                               'weighted_count' => rand(20))
+      district.attributes.merge('count' => district.crime_count,
+                                'weighted_count' => district.weighted_crime_count)
     end
 
     district_counts = @districts.map { |district| district['count'] }

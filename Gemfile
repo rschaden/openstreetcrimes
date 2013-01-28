@@ -50,4 +50,5 @@ group :developement do
   gem 'pry'
   gem "rspec-rails"
   gem "factory_girl"
+  gem 'simplecov'
 end
