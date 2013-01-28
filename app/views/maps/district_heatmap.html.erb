@@ -27,11 +27,13 @@
     <tr>
       <th>Name</th>
       <th>Count</th>
+      <th>Weighted</th>
     </tr>
     <% @districts.each do |district| %>
       <tr>
         <td><%= district['name'] %></td>
         <td><%= district['count'] %></td>
+        <td><%= district['weighted_count'].round(2) %></td>
       </tr>
     <% end %>
   </table>
