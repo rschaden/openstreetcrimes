@@ -10,10 +10,10 @@
       %th Value
     - @quantils[:normal].each_with_index do |quantil, i|
       %tr
-        %td{bgcolor:"#{@colors[i]}"}
+        %td{style: "background-color:#{@colors[i]}"}
         %td{id:"quantil#{i}"}
     %tr
-      %td{bgcolor:"#{@colors[3]}"}
+      %td{style: "background-color:#{@colors[3]}"}
       %td{id:"quantil#{3}"}
   %p Maybe put some statistics here
   %table
