@@ -11,22 +11,34 @@ class MapsController < ApplicationController
 
   def district_heatmap
     @center =  Osc::Geocode.get_point("Berlin")
-    #add random count (0-100) to districts
     @districts = District.all.map do |district|
       district.attributes.merge('count' => district.crime_count,
                                 'weighted_count' => district.weighted_crime_count)
     end
 
-    district_counts = @districts.map { |district| district['count'] }
-    weighted_counts = @districts.map { |district| district['weighted_count'] }
-    @quantils = get_quantil_hash(district_counts, weighted_counts)
+    @quantils = get_quantil_hash(@districts)
+    @colors = ['#00ff00', '#ffff00', '#df7401', '#df0101']
+
+    render layout: 'maps'
+  end
+
+  def historic_heatmap
+    @center =  Osc::Geocode.get_point("Berlin")
+    @districts = District.all.map do |district|
+      district.attributes.merge('count' => district.historic_count(2011),
+                                'weighted_count' => district.weighted_historic_count(2011))
+    end
+
+    @quantils = get_quantil_hash(@districts)
     @colors = ['#00ff00', '#ffff00', '#df7401', '#df0101']
 
     render layout: 'maps'
   end
 
   private
-  def get_quantil_hash(district_counts, weighted_counts)
+  def get_quantil_hash(districts)
+    district_counts = districts.map { |district| district['count'] }
+    weighted_counts = districts.map { |district| district['weighted_count'] }
     result = {}
     result[:normal] = get_quantils(district_counts, 0)
     result[:weighted] = get_quantils(weighted_counts, 2)
