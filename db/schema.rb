@@ -11,7 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130127200402) do
+ActiveRecord::Schema.define(:version => 20130128000034) do
+
+  create_table "crime_histories", :force => true do |t|
+    t.integer  "district_id"
+    t.integer  "year"
+    t.integer  "crime_count"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "crime_types", :force => true do |t|
     t.string   "name",                           :null => false

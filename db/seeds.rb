@@ -44,3 +44,19 @@ end
   'Reinickendorf' => 241824}.each do |district_name, population|
     District.where(name: district_name).first.update_attribute(:population, population)
   end
+#Crime Counts for 2011:
+{ 'Mitte' => 83398,
+  'Friedrichshain-Kreuzberg' => 49422,
+  'Pankow' => 40110,
+  'Charlottenburg-Wilmersdorf' => 50516,
+  'Spandau' => 27660,
+  'Steglitz-Zehlendorf' => 25872,
+  'Tempelhof-Schöneberg' => 40669,
+  'Neukölln' => 45638,
+  'Treptow-Köpenick' => 22903,
+  'Marzahn-Hellersdorf' => 25544,
+  'Lichtenberg' => 26372,
+  'Reinickendorf' => 29014}.each do |district_name, crime_count|
+    district = District.where(name: district_name).first
+    CrimeHistory.create(district_id: district.id, year: 2011, crime_count: crime_count)
+  end
