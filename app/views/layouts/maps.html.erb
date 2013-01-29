@@ -12,10 +12,16 @@
 <style type="text/css"> img { max-width:none; } </style>
 </head>
 <body>
-<div class="hero-unit">
-  <h1><%= @title %></h1>
-    <p>powered by Open Street Crimes</p>
+<% is_recent = if @title.downcase.include? "historic" then false else true end %>
+<div class="navbar">
+  <div class="navbar-inner">
+    <div class="brand"><%= @title %></div>
+    <ul class="nav">
+      <li<%= " class='active'" if is_recent %>><a href="/district_heatmap">Recent Crime Data</a></li>
+      <li<%= " class='active'i" unless is_recent %>><a href="/historic_heatmap">Historic Crime Data</a></li>
+    </ul>
   </div>
+</div>
 
 <%= javascript_include_tag "district_map" %>
 
