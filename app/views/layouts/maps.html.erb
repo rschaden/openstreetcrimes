@@ -17,62 +17,60 @@
   <div class="navbar-inner">
     <div class="brand"><%= @title %></div>
     <ul class="nav">
-      <li<%= " class='active'" if is_recent %>><a href="/district_heatmap">Recent Crime Data</a></li>
-      <li<%= " class='active'i" unless is_recent %>><a href="/historic_heatmap">Historic Crime Data</a></li>
+      <li<%= " class='active'" if @site == :index %>><a href="/maps/">Recent Data Heat Map</a></li>
+      <li<%= " class='active'" if @site == :district_heatmap %>><a href="/district_heatmap">Recent Crime Data - by District</a></li>
+      <li<%= " class='active'" if @site == :historic_heatmap %>><a href="/historic_heatmap">Historic Crime Data - by District</a></li>
     </ul>
   </div>
 </div>
-
-<%= javascript_include_tag "district_map" %>
+<% if @site == :index %>
+  <%= javascript_include_tag "heat_map" %>
+<% else %>
+    <%= javascript_include_tag "district_map" %>
+<% end %>
 
 <div class="row">
 
-<%= content_tag "div", id: 'map', class: 'smallmap span4', data: {district: @districts, center_x: @center.x, center_y: @center.y, quantils: @quantils, colors: @colors} do %>
+<% unless @site == :index %>
+  <%= content_tag "div", id: 'map', class: 'smallmap span4', data: {district: @districts, center_x: @center.x, center_y: @center.y, quantils: @quantils, colors: @colors} do %>
+  <% end %>
+<% else %>
+  <%= content_tag "div", id: 'map', class: 'smallmap', data: {district: @districts, crimes: @crimes, center_x: @center.x, center_y: @center.y } do %>
+  <% end %>
 <% end %>
 <div class="span12">
   <div class="row-fluid">
     <div class="span3">
-  <button name="Toggle" type='button' id='button' class="btn btn-primary btn-large">Change to Weighted</button>
-  <table class="table">
-    <tr>
-      <th>Color</th>
-      <th>Value</th>
-    </tr>
-    <% @quantils[:normal].each_with_index do |quantil, i| %>
-      <tr>
-        <td style="background-color: <%= @colors[i] %>;"></td>
-        <td id ="quantil<%= i%>">less than or equal to <%= quantil %> </td>
-      </tr>
+  <%= yield %>
+    <% unless @site == :index %>
+      <button name="Toggle" type='button' id='button' class="btn btn-primary btn-large">Change to Weighted</button>
+      <% link = if @title.downcase.include? "historic" then "/district_heatmap" else "/historic_heatmap" end %>
+      <% text = if @title.downcase.include? "historic" then "Recent Crime Data" else "Historic Crime Data (2011)" end %>
+      <%= link_to "See #{text}", link, class: 'btn btn-large' %>
     <% end %>
-      <tr>
-        <td style="background-color: <%= @colors[3] %>;"></td>
-        <td id='quantil3'>greater than <%= @quantils[:normal].last %> </td>
-      </tr>
-    </table>
-    <% link = if @title.downcase.include? "historic" then "/district_heatmap" else "/historic_heatmap" end %>
-    <% text = if @title.downcase.include? "historic" then "Recent Crime Data" else "Historic Crime Data (2011)" end %>
-    <%= link_to "See #{text}", link, class: 'btn btn-large' %>
   </div>
   <div class="span7 offset2">
 
-  <table class="table table-striped table-hover">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Count</th>
-        <th>Weighted</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @districts.each do |district| %>
-      <tr>
-        <td><%= district['name'] %></td>
-        <td><%= district['count'] %></td>
-        <td><%= district['weighted_count'].round(2) %></td>
+  <% unless @site == :index %>
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Count</th>
+          <th>Weighted</th>
       </tr>
-    <% end %>
+    </thead>
+    <tbody>
+      <% @districts.each do |district| %>
+        <tr>
+          <td><%= district['name'] %></td>
+          <td><%= district['count'] %></td>
+          <td><%= district['weighted_count'].round(2) %></td>
+        </tr>
+      <% end %>
     </tbody>
-  </table>
+    </table>
+  <% end %>
 </div>
   </div>
 </div>
