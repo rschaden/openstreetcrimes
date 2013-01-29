@@ -6,11 +6,11 @@
     <% @quantils[:normal].each_with_index do |quantil, i| %>
       <tr>
         <td style="background-color: <%= @colors[i] %>;"></td>
-        <td id ="quantil<%= i%>">less than or equal to <%= quantil %> </td>
+        <td id ="quantil<%= i%>"></td>
       </tr>
     <% end %>
       <tr>
         <td style="background-color: <%= @colors[3] %>;"></td>
-        <td id='quantil3'>greater than <%= @quantils[:normal].last %> </td>
+        <td id='quantil3'></td>
       </tr>
     </table>
