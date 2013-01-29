@@ -10,6 +10,7 @@ class MapsController < ApplicationController
   end
 
   def district_heatmap
+    @title = "Recent Crime Data - Heat Map"
     @center =  Osc::Geocode.get_point("Berlin")
     @districts = District.all.map do |district|
       district.attributes.merge('count' => district.crime_count,
@@ -23,6 +24,7 @@ class MapsController < ApplicationController
   end
 
   def historic_heatmap
+    @title = "Historic Crime Data (2011) - Heat Map"
     @center =  Osc::Geocode.get_point("Berlin")
     @districts = District.all.map do |district|
       district.attributes.merge('count' => district.historic_count(2011),
