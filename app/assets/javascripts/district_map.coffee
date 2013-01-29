@@ -89,6 +89,6 @@ MapControls =
     i = 0
     quantils = MapData.quantils()
     for quantil in quantils
-      $("#quantil#{i}").text("<=#{quantil}")
+      $("#quantil#{i}").text("less than or equal to #{quantil}")
       i++
-    $("#quantil3").text("> #{quantils[2]}")
+    $("#quantil3").text("greater than #{quantils[2]}")
