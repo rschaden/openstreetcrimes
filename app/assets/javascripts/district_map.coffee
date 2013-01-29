@@ -46,7 +46,7 @@ MapData =
     colors =  $('#map').data('colors')
     i = 0
     for quantil in @.quantils()
-      if count <= quantil
+      if count < quantil
         break
       i++
     colors[i]
@@ -89,6 +89,6 @@ MapControls =
     i = 0
     quantils = MapData.quantils()
     for quantil in quantils
-      $("#quantil#{i}").text("less than or equal to #{quantil}")
+      $("#quantil#{i}").text("less than #{quantil}")
       i++
-    $("#quantil3").text("greater than #{quantils[2]}")
+    $("#quantil3").text("greater than or equal to #{quantils[2]}")
