@@ -17,9 +17,9 @@
   <div class="navbar-inner">
     <div class="brand"><%= @title %></div>
     <ul class="nav">
-      <li<%= " class='active'" if @site == :index %>><a href="/maps/">Recent Data Heat Map</a></li>
       <li<%= " class='active'" if @site == :district_heatmap %>><a href="/district_heatmap">Recent Crime Data - by District</a></li>
       <li<%= " class='active'" if @site == :historic_heatmap %>><a href="/historic_heatmap">Historic Crime Data - by District</a></li>
+      <li<%= " class='active'" if @site == :index %>><a href="/maps/">Recent Data Heat Map</a></li>
     </ul>
   </div>
 </div>
