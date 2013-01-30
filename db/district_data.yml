@@ -1,0 +1,71 @@
+mitte:
+  name: 'Mitte'
+  population: 334465
+  crime_history:
+    2011: 83398
+
+fhain:
+  name: 'Friedrichshain-Kreuzberg'
+  population: 270873
+  crime_history:
+    2011: 49422
+
+pankow:
+  name: 'Pankow'
+  population: 372295
+  crime_history:
+    2011: 40110
+
+charlie:
+  name: 'Charlottenburg-Wilmersdorf'
+  population: 320835
+  crime_history:
+    2011: 50516
+
+spandau:
+  name: 'Spandau'
+  population: 226914
+  crime_history:
+    2011: 27660
+
+steglitz:
+  name: 'Steglitz-Zehlendorf'
+  population: 295950
+  crime_history:
+    2011: 25872
+
+thof:
+  name: 'Tempelhof-Schöneberg'
+  population: 336527
+  crime_history:
+    2011: 40669
+
+koeln:
+  name: 'Neukölln'
+  population: 313394
+  crime_history:
+    2011: 45638
+
+treptow:
+  name: 'Treptow-Köpenick'
+  population: 242957
+  crime_history:
+    2011: 22903
+
+marzahn:
+  name: 'Marzahn-Hellersdorf'
+  population: 250713
+  crime_history:
+    2011: 25544
+
+lberg:
+  name: 'Lichtenberg'
+  population: 262192
+  crime_history:
+    2011: 26372
+
+rdorf:
+  name: 'Reinickendorf'
+  population: 241824
+  crime_history:
+    2011: 29014

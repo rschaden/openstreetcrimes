@@ -28,36 +28,20 @@ unless File.exists? berlin_osm_target
   ActiveRecord::Base.connection.execute(sql)
 end
 
-#population data taken from
-#http://www.berlin.de/berlin-im-ueberblick/politik/bezirke.de.html
-{ 'Mitte' => 334465,
-  'Friedrichshain-Kreuzberg' => 270873,
-  'Pankow' => 372295,
-  'Charlottenburg-Wilmersdorf' => 320835,
-  'Spandau' => 226914,
-  'Steglitz-Zehlendorf' => 295950,
-  'Tempelhof-Schöneberg' => 336527,
-  'Neukölln' => 313394,
-  'Treptow-Köpenick' => 242957,
-  'Marzahn-Hellersdorf' => 250713,
-  'Lichtenberg' => 262192,
-  'Reinickendorf' => 241824}.each do |district_name, population|
-    District.where(name: district_name).first.update_attribute(:population, population)
+districts = YAML.load_file('db/district_data.yml')
+
+
+districts.each do |key, district|
+  District.where(name: district['name']).first.
+    update_attribute(:population, district['population'])
+end
+
+CrimeHistory.delete_all
+districts.each do |key, district_data|
+  district = District.where(name: district_data['name']).first
+  district_data['crime_history'].each do |year, crime_count|
+    CrimeHistory.create(district_id: district.id,
+                        year: year,
+                        crime_count: crime_count)
   end
-#Crime Counts for 2011:
-#source: http://www.berlin.de/sen/inneres/sicherheit/statistiken/index.html
-{ 'Mitte' => 83398,
-  'Friedrichshain-Kreuzberg' => 49422,
-  'Pankow' => 40110,
-  'Charlottenburg-Wilmersdorf' => 50516,
-  'Spandau' => 27660,
-  'Steglitz-Zehlendorf' => 25872,
-  'Tempelhof-Schöneberg' => 40669,
-  'Neukölln' => 45638,
-  'Treptow-Köpenick' => 22903,
-  'Marzahn-Hellersdorf' => 25544,
-  'Lichtenberg' => 26372,
-  'Reinickendorf' => 29014}.each do |district_name, crime_count|
-    district = District.where(name: district_name).first
-    CrimeHistory.create(district_id: district.id, year: 2011, crime_count: crime_count)
-  end
+end
