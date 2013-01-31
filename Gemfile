@@ -15,6 +15,7 @@ gem 'geocoder', '1.1.6'
 gem 'activerecord-postgis-adapter'
 gem 'nokogiri'
 gem 'redis'
+gem 'whenever', :require => false
 # gem 'open-uri'
 
 # Gems used only for assets and not required
