@@ -19,9 +19,17 @@ Science, Freie Universität Berlin, Takustr. 9, 14195 Berlin.
 
 ## About
 
+This project uses the RSS newsfeed from the Berlin Police Department to fetch
+information about crime (and similar) incidents, geocodes them and stores them
+into a spatial database. A ruby on rails application acts as a visualization
+layer and provides several views on the aggregated incident data. It currently
+supports heat-maps and colored districts for live data and historic data.
+
 ### Used Technologies
 
 * RGeo - geospatial data library for Ruby,  https://github.com/dazuma/rgeo
+* PostgreSQL with PostGIS, a relational database management system and its
+  geospatial extension, http://postgis.org/
 * PostGIS ActiveRecord Adapter,
   https://github.com/dazuma/activerecord-postgis-adapter
 * Feedzirra - Feed parsing gem, https://github.com/pauldix/feedzirra
