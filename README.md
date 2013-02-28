@@ -11,7 +11,11 @@ Berlin](http://mi.fu-berlin.de/) in Winter 2012/2013. The lecture was held by
 [Prof. Agnès Voisard](http://page.mi.fu-berlin.de/voisard/) and assisted by
 [Daniel Kressner](http://kressnerd.de/).
 
-Main contributers were @hendrikb and @rschaden.
+Main contributers were [@hendrikb](https://github.com/hendrikb) and [@rschaden](https://github.com/rschaden).
+
+A demo of the application in action can be seen at the Lange Nacht der
+Wissenschaften in Berlin, on June 8, 2013 at the Department of Computer
+Science, Freie Universität Berlin, Takustr. 9, 14195 Berlin.
 
 ## About
 
