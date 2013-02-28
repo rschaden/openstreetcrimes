@@ -47,6 +47,36 @@ that must be invoked to fetch the newest incident reportings from the police
 news feed. This task is called by ```rake osc:fetch_feeds``` on the console.
 This is likely to be run every once in a while by a cronjob.
 
+This task writes all newly available incidents into the database using the
+[RawCrime-Model](https://github.com/rschaden/openstreetcrimes/blob/master/app/models/raw_crime.rb).
+This is some form of unprocessed, non-spatial caching, as there are only
+twenty-something events listed in the newsfeed and we collect them to just have
+them available when we need them.
+
+Magic comes into play, when these RawCrime-Events get converted to
+[Crime](https://github.com/rschaden/openstreetcrimes/blob/master/app/models/crime.rb)
+model instances by invoking the
+[crime_converter](https://github.com/rschaden/openstreetcrimes/blob/master/lib/tasks/crime_converter.rake)
+rake task by hacking ```rake osc:convert_crimes``` into the shell.
+
+All RawCrimes that have not yet been converted into ("real") Crimes are now ...
+* ... being converted into an instance of the Crime Model
+* ... parsed for street/place/district names
+* ... geocoded (trying to find an exact Langitude/Longitude location for a
+  found street/place name)
+* ... saved in the crimes table (managed by Crime-Model, Ruby on Rails style).
+
+Having geocoded, spatial data enriched Crimes in the database allows us to open
+the web browser and access the GUI. There are two modes of operation:
+
+1. It'll show us a heat map with all available Crimes on it, coloring the areas
+   with a high frequency of ("let's say it is just...") events.
+2. It can also show us a colored map with all of Berlin's districts. Depending
+   on the coloring one can guess how much fuzz is going on in each of the
+   districts. This mode can be applied by historic data from 2011 that is
+   complete or from the converted Crimes, downloaded from the Berlin Police
+   Department, as described above.
+
 ## Installation
 
 ### Prerequisites
