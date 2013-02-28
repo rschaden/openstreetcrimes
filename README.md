@@ -41,6 +41,12 @@ supports heat-maps and colored districts for live data and historic data.
 
 ## How things work
 
+Actually the approach is very straight forward. There's a [rake
+task](https://github.com/rschaden/openstreetcrimes/blob/master/lib/tasks/importer.rake)
+that must be invoked to fetch the newest incident reportings from the police
+news feed. This task is called by ```rake osc:fetch_feeds``` on the console.
+This is likely to be run every once in a while by a cronjob.
+
 ## Installation
 
 ### Prerequisites
