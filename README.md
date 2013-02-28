@@ -7,7 +7,9 @@ and such.
 You can find OpenStreetCrimes' source code at Github: https://github.com/rschaden/openstreetcrimes
 
 It was part of a Spatial DB related University Project at [Freie Universität
-Berlin](http://mi.fu-berlin.de/) in Winter 2012/2013.
+Berlin](http://mi.fu-berlin.de/) in Winter 2012/2013. The lecture was held by
+[Prof. Agnès Voisard](http://page.mi.fu-berlin.de/voisard/) and assisted by
+[Daniel Kressner](http://kressnerd.de/).
 
 Main contributers were @hendrikb and @rschaden.
 
