@@ -79,6 +79,16 @@ the web browser and access the GUI. There are two modes of operation:
 
 ## Installation
 
+TODO
+
 ### Prerequisites
 
+TODO
 
+### Setting up the Infrastructure
+
+TODO
+
+## Problems and TODOs
+
+TODO
