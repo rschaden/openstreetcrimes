@@ -91,7 +91,7 @@ However, the long version is this (we're using Ubuntu Server 12.04):
 
 ```
 # Install PostgreSQL
-$ sudo apt-get install postgresql-server-dev-9.1 git
+$ sudo apt-get install postgresql-server-dev-9.1  postgresql-client-9.1
 
 # Install dependencies for PostGIS
 $ sudo apt-get install build-essential libxml2-dev
@@ -137,23 +137,35 @@ $ tar xfvz postgis-2.0.3.tar.gz
 $ cd postgis-2.0.3
 $ ./configure && make && sudo make install
 
+$ sudo service postgresql restart
+
 ```
 
 ### Setting up Ruby
 
 ```
-$ sudo apt-get install ruby
+$ sudo apt-get install ruby1.9.3
 ```
 
-Heavens!
+Heavens, that was easy. Now update the ruby packaging system (rubygems and bundler).
+
+```
+$ sudo gem update
+$ sudo gem install bundler
+```
 
 ### Setting up OpenStreetCrimes
 
 ```
+# We need these additional libraries and tools for our project:
+$ sudo apt-get git install libcurl4-gnutls-dev libxslt1-dev 
+
+# Install openstreetcrimes:
+
 $ cd ~/code
-$ git clone git@github.com:rschaden/openstreetcrimes.git
+$ git clone git://github.com/rschaden/openstreetcrimes.git
 $ cd openstreetcrimes
-$ sudo bundle install # this can heavily be optimized by using RVM on a production system
+$ sudo bundle install # this can be heavily optimized by using RVM on a production system
 $ 
 ```
 
