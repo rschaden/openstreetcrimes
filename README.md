@@ -79,13 +79,86 @@ the web browser and access the GUI. There are two modes of operation:
 
 ## Installation
 
-TODO
+In general it makes sense to know some basics about Postgis and especially Ruby on Rails.
 
-### Prerequisites
+### Setting up the Database
 
-TODO
+What you definitely have to have installed and properly configured is a Postgres database (at least v9.1), equipped with a recent version of the Postgis extension (at least v2.0!). 
 
-### Setting up the Infrastructure
+Short Story: To be honest, we had some issues to put up everything with the standard Ubuntu apt-system, so we basically installed PostreSQL via sudo ```apt-get install postgresql-server-dev-9.1``` and compiled postgis manually via ```./configure && make && make install``` (of course we had to deal with all the dependency library stuff beforehand, I'm walking about gcc, make, Proj4, GEOS, LibXML2, JSON-C and GDAL). There are excellent docs about the [installation of postgis](http://postgis.net/docs/manual-2.0/).
+
+However, the long version is this (we're using Ubuntu Server 12.04):
+
+```
+# Install PostgreSQL
+$ sudo apt-get install postgresql-server-dev-9.1 git
+
+# Install dependencies for PostGIS
+$ sudo apt-get install build-essential libxml2-dev
+
+$ mkdir -p ~/code
+$ cd ~/code
+
+# INSTALL THE DEPENDENCIES
+
+# Install PROJ
+$ wget http://download.osgeo.org/proj/proj-4.8.0.tar.gz
+$ tar xfvz proj-4.8.0.tar.gz
+$ cd proj-4.8.0/
+$ ./configure && make && sudo make install
+$ cd ..
+
+# Install GEOS
+$ wget http://download.osgeo.org/geos/geos-3.3.8.tar.bz2
+$ tar xfvj geos-3.3.8.tar.bz2
+$ cd geos-3.3.8/
+$ ./configure && make && sudo make install
+$ cd ..
+
+# Install JSON-C
+$ wget http://oss.metaparadigm.com/json-c/json-c-0.9.tar.gz
+$ tar xfvz json-c-0.9.tar.gz
+$ cd cd json-c-0.9/
+$ ./configure && make && sudo make install
+$ cd ..
+
+# Install GDAL
+$ wget http://download.osgeo.org/gdal/gdal-1.9.2.tar.gz
+$ tar xfvz gdal-1.9.2.tar.gz
+$ cd gdal-1.9.2/
+$ ./configure && make && sudo make install # this takes a while!
+$ cd ..
+
+
+## FINALLY INSTALL POSTGIS:
+
+$ wget http://download.osgeo.org/postgis/source/postgis-2.0.3.tar.gz
+$ tar xfvz postgis-2.0.3.tar.gz
+$ cd postgis-2.0.3
+$ ./configure && make && sudo make install
+
+```
+
+### Setting up Ruby
+
+```
+$ sudo apt-get install ruby
+```
+
+Heavens!
+
+### Setting up OpenStreetCrimes
+
+```
+$ cd ~/code
+$ git clone git@github.com:rschaden/openstreetcrimes.git
+$ cd openstreetcrimes
+$ sudo bundle install # this can heavily be optimized by using RVM on a production system
+$ 
+```
+
+
+
 
 TODO
 
