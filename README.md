@@ -162,6 +162,18 @@ $
 
 TODO
 
-## Problems and TODOs
+## Known Problems
 
-TODO
+We know this is far from being perfect. This project was more or less a homework assignment. We know, that there are a couple of coding inconsistencies, dealing with the database might be a little inefficient and when it comes to representativeness, we're basically mixing up data about serious car crashes with crime-incidents - so OpenStreetCRIMES is not about crimes alone, but about the things that happen in Berlin that the Police department talks about.
+
+## Contribution and TODOs
+If you want to contribute in ANY WAY, your help is very much appreciated. Just fork the project, do your changes, add some specs (it's not a MUST but it's a BIG PLUS) push your changes to your repo and file a pull request on GitHub. We'll review it and merge your features or bug fixes if everything looks good. :) Thanks in advance.
+
+How could you help us? Well, here are some ideas:
+
+* make OpenStreetCrimes a more general thing: add support for different areas, cities or even states...?!
+* convert the views from ERB to HAML
+* increase test coverage
+* fix any bug you find
+* refactor
+* clean up the code
