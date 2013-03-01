@@ -91,7 +91,7 @@ However, the long version is this (we're using Ubuntu Server 12.04):
 
 ```
 # Install PostgreSQL
-$ sudo apt-get install postgresql-server-dev-9.1  postgresql-client-9.1
+$ sudo apt-get install postgresql postgresql-server-dev-9.1  postgresql-client-9.1
 
 # Install dependencies for PostGIS
 $ sudo apt-get install build-essential libxml2-dev
@@ -166,8 +166,31 @@ $ cd ~/code
 $ git clone git://github.com/rschaden/openstreetcrimes.git
 $ cd openstreetcrimes
 $ sudo bundle install # this can be heavily optimized by using RVM on a production system
-$ 
+
+# Create a database user and use your brain while doing so
+$ sudo -u postgres psql -c "CREATE USER ´user´ WITH CREATEDB PASSWORD 'user'
+
+# create the databases (test, production and development, as usually in rails)
+# and enable access and enable the postgis extension on each of them
+
+$  sudo -u postgres psql -c "CREATE DATABASE openstreetcrimes_dev WITH OWNER = ´user´;"
+$  sudo -u postgres psql -c "CREATE DATABASE openstreetcrimes_test WITH OWNER = ´user´;"
+$  sudo -u postgres psql -c "CREATE DATABASE openstreetcrimes_prod WITH OWNER = ´user´;"
+
+$ sudo -u postgres psql -c "CREATE EXTENSION postgis VERSION '2.0.3';" openstreetcrimes_dev
+$ sudo -u postgres psql -c "CREATE EXTENSION postgis VERSION '2.0.3';" openstreetcrimes_test
+$ sudo -u postgres psql -c "CREATE EXTENSION postgis VERSION '2.0.3';" openstreetcrimes_prod
+
+# Create the database configuration for the recently created database database user
+$ cp config/db.yml.template config/database.yml
 ```
+
+Okay, we've come pretty far here. Everything technical should be quite set up now. Let's continue with loading
+some data into the database now.
+
+TODO
+
+$ 
 
 
 
@@ -184,8 +207,10 @@ If you want to contribute in ANY WAY, your help is very much appreciated. Just f
 How could you help us? Well, here are some ideas:
 
 * make OpenStreetCrimes a more general thing: add support for different areas, cities or even states...?!
-* convert the views from ERB to HAML
-* increase test coverage
 * fix any bug you find
+* increase test coverage
+* convert the views from ERB to HAML
 * refactor
 * clean up the code
+* Improve the README and/or documentation
+* Improve ANYTHING ELSE
