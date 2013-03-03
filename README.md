@@ -173,9 +173,9 @@ sudo -u postgres psql -c "CREATE ROLE openstreetcrimes WITH CREATEDB LOGIN PASSW
 # create the databases (test, production and development, as usually in rails)
 # and enable access and enable the postgis extension on each of them
 
-$  sudo -u postgres psql -c "CREATE DATABASE openstreetcrimes_dev WITH OWNER = ´user´;"
-$  sudo -u postgres psql -c "CREATE DATABASE openstreetcrimes_test WITH OWNER = ´user´;"
-$  sudo -u postgres psql -c "CREATE DATABASE openstreetcrimes_prod WITH OWNER = ´user´;"
+$  sudo -u postgres psql -c "CREATE DATABASE openstreetcrimes_dev WITH OWNER = openstreetcrimes"
+$  sudo -u postgres psql -c "CREATE DATABASE openstreetcrimes_test WITH OWNER = openstreetcrimes"
+$  sudo -u postgres psql -c "CREATE DATABASE openstreetcrimes_prod WITH OWNER = openstreetcrimes"
 
 $ sudo -u postgres psql -c "CREATE EXTENSION postgis" openstreetcrimes_dev
 $ sudo -u postgres psql -c "CREATE EXTENSION postgis" openstreetcrimes_test
