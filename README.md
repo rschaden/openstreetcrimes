@@ -177,9 +177,9 @@ $  sudo -u postgres psql -c "CREATE DATABASE openstreetcrimes_dev WITH OWNER = �
 $  sudo -u postgres psql -c "CREATE DATABASE openstreetcrimes_test WITH OWNER = ´user´;"
 $  sudo -u postgres psql -c "CREATE DATABASE openstreetcrimes_prod WITH OWNER = ´user´;"
 
-$ sudo -u postgres psql -c "CREATE EXTENSION postgis VERSION '2.0.3';" openstreetcrimes_dev
-$ sudo -u postgres psql -c "CREATE EXTENSION postgis VERSION '2.0.3';" openstreetcrimes_test
-$ sudo -u postgres psql -c "CREATE EXTENSION postgis VERSION '2.0.3';" openstreetcrimes_prod
+$ sudo -u postgres psql -c "CREATE EXTENSION postgis" openstreetcrimes_dev
+$ sudo -u postgres psql -c "CREATE EXTENSION postgis" openstreetcrimes_test
+$ sudo -u postgres psql -c "CREATE EXTENSION postgis" openstreetcrimes_prod
 
 # Create the database configuration for the recently created database database user
 $ cp config/db.yml.template config/database.yml
