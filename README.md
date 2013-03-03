@@ -83,7 +83,7 @@ In general it makes sense to know some basics about Postgis and especially Ruby 
 
 ### Setting up the Database
 
-What you definitely have to have installed and properly configured is a Postgres database (at least v9.1), equipped with a recent version of the Postgis extension (at least v2.0!). 
+What you definitely have to have installed and properly configured is a Postgres database (at least v9.1), equipped with a recent version of the Postgis extension (at least v2.0!).
 
 Short Story: To be honest, we had some issues to put up everything with the standard Ubuntu apt-system, so we basically installed PostreSQL via sudo ```apt-get install postgresql-server-dev-9.1``` and compiled postgis manually via ```./configure && make && make install``` (of course we had to deal with all the dependency library stuff beforehand, I'm walking about gcc, make, Proj4, GEOS, LibXML2, JSON-C and GDAL). There are excellent docs about the [installation of postgis](http://postgis.net/docs/manual-2.0/).
 
@@ -158,7 +158,7 @@ $ sudo gem install bundler
 
 ```
 # We need these additional libraries and tools for our project:
-$ sudo apt-get git install libcurl4-gnutls-dev libxslt1-dev 
+$ sudo apt-get git install libcurl4-gnutls-dev libxslt1-dev
 
 # Install openstreetcrimes:
 
@@ -167,8 +167,8 @@ $ git clone git://github.com/rschaden/openstreetcrimes.git
 $ cd openstreetcrimes
 $ sudo bundle install # this can be heavily optimized by using RVM on a production system
 
-# Create a database user and use your brain while doing so
-$ sudo -u postgres psql -c "CREATE USER ´user´ WITH CREATEDB PASSWORD 'user'
+# Create a database user and use your brain while doing so!
+sudo -u postgres psql -c "CREATE ROLE openstreetcrimes WITH CREATEDB LOGIN PASSWORD 'ChangeMeQuickly'"
 
 # create the databases (test, production and development, as usually in rails)
 # and enable access and enable the postgis extension on each of them
@@ -190,7 +190,7 @@ some data into the database now.
 
 TODO
 
-$ 
+$
 
 
 

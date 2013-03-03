@@ -4,8 +4,8 @@ development: &defaults
   postgis_extension: true
   database: openstreetcrimes_dev
   host: localhost
-  username: user
-  password: user
+  username: openstreetcrimes
+  password: ChangeMeQuickly
 
 test:
   <<: *defaults
