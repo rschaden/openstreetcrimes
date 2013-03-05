@@ -213,10 +213,50 @@ What this basically does is the following:
    the districts
 7. ([https://github.com/rschaden/openstreetcrimes/blob/95670745c316363224fe17417182f78731f7625d/db/seeds.rb#L39-L46](Details)) We add the historic crime data found in the YAML file to the districts table. We need that for the historic crime view.
 
+### Fetch incident data from the police' newsfeed
+
+Technically, everything should be set up by now. We still need recent incident
+data, though. You can easily fetch them from the Berlin Police News Feed by
+doing this:
+
+```
+rake osc:fetch_feeds
+```
+
+This, as explained above, only caches the newest incidents. It makes sense to
+poll this feed every - let's say - 24 hours. To do so we provided a barebone
+```config/schedule``` (hint: it uses rubygem's ```whenever``` tool!). You can
+customize that or simply insert a crontab entry for executing osc:fetch_feeds.
+
+We need to convert the RawCrimes to real Crimes now (also: regularly!):
+
+```
+rake osc:convert_crimes
+```
+
+Schedule/crontab this rake-task execution less-or-equally often than the fetch_feeds task.
+
+You're down now.
+
+### Done, launch the application
+
+This was pretty hard, we know, but it's a mere complex setup to deal with. On
+the otherhand, once it is set up, it runs like hell.
+
+You now may launch the application by typing: ```rails server```
+
+Depending on your rails configuration, everything should now be running.
+
+Launch your browser and head over to [http://localhost:3000].
 
 ## Known Problems
 
-We know this is far from being perfect. This project was more or less a homework assignment. We know, that there are a couple of coding inconsistencies, dealing with the database might be a little inefficient and when it comes to representativeness, we're basically mixing up data about serious car crashes with crime-incidents - so OpenStreetCRIMES is not about crimes alone, but about the things that happen in Berlin that the Police department talks about.
+We know this is far from being perfect. This project was more or less a homework assignment.
+We know, that there are a couple of coding inconsistencies, dealing with the database might be a little inefficient and when it comes to representativeness, we're basically mixing up data about serious car crashes with crime-incidents - so OpenStreetCRIMES is not about crimes alone, but about the things that happen in Berlin that the Police department talks about.
+
+And yes, the initial database configuration and setup is a hassle, please help
+is fixing that. We need experts for that, this was our first time dealing with
+all those technologies.
 
 ## Contribution and TODOs
 If you want to contribute in ANY WAY, your help is very much appreciated. Just fork the project, do your changes, add some specs (it's not a MUST but it's a BIG PLUS) push your changes to your repo and file a pull request on GitHub. We'll review it and merge your features or bug fixes if everything looks good. :) Thanks in advance.
