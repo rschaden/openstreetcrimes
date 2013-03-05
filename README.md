@@ -264,6 +264,7 @@ If you want to contribute in ANY WAY, your help is very much appreciated. Just f
 How could you help us? Well, here are some ideas:
 
 * make OpenStreetCrimes a more general thing: add support for different areas, cities or even states...?!
+* make installation, setup and configuration, especially of postgresql, postgis, and OSM-data easier
 * fix any bug you find
 * increase test coverage
 * convert the views from ERB to HAML
