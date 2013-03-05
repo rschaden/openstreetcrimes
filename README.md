@@ -94,7 +94,7 @@ However, the long version is this (we're using Ubuntu Server 12.04):
 $ sudo apt-get install postgresql postgresql-server-dev-9.1  postgresql-client-9.1
 
 # Install dependencies for PostGIS
-$ sudo apt-get install build-essential libxml2-dev
+$ sudo apt-get install build-essential libxml2-dev automake libtool libbz2-dev
 
 $ mkdir -p ~/code
 $ cd ~/code
@@ -168,18 +168,16 @@ $ cd openstreetcrimes
 $ sudo bundle install # this can be heavily optimized by using RVM on a production system
 
 # Create a database user and use your brain while doing so!
-sudo -u postgres psql -c "CREATE ROLE openstreetcrimes WITH CREATEDB LOGIN PASSWORD 'ChangeMeQuickly'"
+$  sudo -u postgres psql -c "CREATE ROLE openstreetcrimes WITH SUPERUSER LOGIN PASSWORD 'ChangeMeQuickly'"
 
 # create the databases (test, production and development, as usually in rails)
 # and enable access and enable the postgis extension on each of them
 
 $  sudo -u postgres psql -c "CREATE DATABASE openstreetcrimes_dev WITH OWNER = openstreetcrimes"
 $  sudo -u postgres psql -c "CREATE DATABASE openstreetcrimes_test WITH OWNER = openstreetcrimes"
-$  sudo -u postgres psql -c "CREATE DATABASE openstreetcrimes_prod WITH OWNER = openstreetcrimes"
 
-$ sudo -u postgres psql -c "CREATE EXTENSION postgis" openstreetcrimes_dev
-$ sudo -u postgres psql -c "CREATE EXTENSION postgis" openstreetcrimes_test
-$ sudo -u postgres psql -c "CREATE EXTENSION postgis" openstreetcrimes_prod
+$  sudo -u postgres psql -U openstreetcrimes -W -h 127.0.0.1 -c "CREATE EXTENSION postgis" openstreetcrimes_dev
+$  sudo -u postgres psql -U openstreetcrimes -W -h 127.0.0.1 -c "CREATE EXTENSION postgis" openstreetcrimes_test
 
 # Create the database configuration for the recently created database database user
 $ cp config/db.yml.template config/database.yml
