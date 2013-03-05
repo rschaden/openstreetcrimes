@@ -186,14 +186,33 @@ $ cp config/db.yml.template config/database.yml
 Okay, we've come pretty far here. Everything technical should be quite set up now. Let's continue with loading
 some data into the database now.
 
-TODO
+```
+$ rake db:setup
+```
+This is basically the key. We had a hard time get everything working on this
+point. It seems that we're not pro-postgresql enough to figure out the
+incompatibilities somewhere in the triangle of postgresql, postgis and
+osm2pgsql.
 
-$
+What this basically does is the following:
 
+1. It sets up the databases itself
+2. It creates the Postgis Extensions on those DBs
+3. It goes through all our migrations, having our latest database schema
+   on-line afterwards. Migrations reflect the change of the database's state
+   during our development, having the final ("release") state at the end
+4. ([https://github.com/rschaden/openstreetcrimes/blob/95670745c316363224fe17417182f78731f7625d/db/seeds.rb#L22](Details)) It downloads the [berlin.osm.bz2 from
+   geofabrik.de](http://download.geofabrik.de/openstreetmap/europe/germany/berlin.osm.bz2). That file basically contains the "borders" of Berlin's districts as polygons (and a lot more).
+5. ([https://github.com/rschaden/openstreetcrimes/blob/95670745c316363224fe17417182f78731f7625d/db/seeds.rb#L23](Details)) It calls osm2pgsql - a tool that converts the polygons from the file above
+   into a Postgis/PostgreSQL-readable database format. Be very sure that
+   everything in your database setup is alright and that you have sufficient
+   rights to create extensions in the database and stuff
+6. ((https://github.com/rschaden/openstreetcrimes/blob/95670745c316363224fe17417182f78731f7625d/db/seeds.rb#L25-L37)[Details]) It extracts the districts themselves from the database and fills the
+   Districts table. We are now able to query for Districts with geospatial
+   operations. Also, we gather population data from a YAML file and add them to
+   the districts
+7. ([https://github.com/rschaden/openstreetcrimes/blob/95670745c316363224fe17417182f78731f7625d/db/seeds.rb#L39-L46](Details)) We add the historic crime data found in the YAML file to the districts table. We need that for the historic crime view.
 
-
-
-TODO
 
 ## Known Problems
 
