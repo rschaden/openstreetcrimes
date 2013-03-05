@@ -243,11 +243,13 @@ You're down now.
 This was pretty hard, we know, but it's a mere complex setup to deal with. On
 the otherhand, once it is set up, it runs like hell.
 
-You now may launch the application by typing: ```rails server```
+You now may launch the application by typing:
+
+```rails server```
 
 Depending on your rails configuration, everything should now be running.
 
-Launch your browser and head over to [http://localhost:3000].
+Launch your browser and head over to (http://localhost:3000).
 
 ## Known Problems
 
