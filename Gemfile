@@ -48,6 +48,7 @@ gem 'jquery-rails'
 # To use debugger
 # gem 'debugger'
 group :developement do
+  gem 'database_cleaner'
   gem 'pry'
   gem "rspec-rails"
   gem "factory_girl"

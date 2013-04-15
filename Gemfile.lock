@@ -44,6 +44,7 @@ GEM
       execjs
     coffee-script-source (1.6.2)
     curb (0.7.18)
+    database_cleaner (0.9.1)
     diff-lcs (1.2.3)
     erubis (2.7.0)
     execjs (1.4.0)
@@ -174,6 +175,7 @@ DEPENDENCIES
   activerecord-postgis-adapter
   bootstrap-sass
   coffee-rails (~> 3.2.1)
+  database_cleaner
   factory_girl
   feedzirra
   geocoder (= 1.1.6)

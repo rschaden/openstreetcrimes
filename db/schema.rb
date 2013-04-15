@@ -36,8 +36,8 @@ ActiveRecord::Schema.define(:version => 20130128000034) do
     t.datetime "updated_at",                                             :null => false
     t.integer  "crime_type_id"
     t.integer  "district_id"
-    t.spatial  "location",      :limit => {:srid=>3785, :type=>"point"}
     t.text     "guid"
+    t.spatial  "location",      :limit => {:srid=>3785, :type=>"point"}
   end
 
   add_index "crimes", ["location"], :name => "index_crimes_on_location", :spatial => true

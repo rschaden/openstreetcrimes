@@ -4,8 +4,8 @@ SimpleCov.start
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
-require 'rspec/autorun'
 require 'factory_girl'
+require 'database_cleaner'
 
 SPEC_ROOT = File.dirname(__FILE__)
 $:.unshift(SPEC_ROOT)
@@ -16,6 +16,9 @@ Dir.glob(SPEC_ROOT + '/factories/*').each { |f| require f }
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 RSpec.configure do |config|
+  config.before :each do
+    DatabaseCleaner[:active_record].clean_with :truncation
+  end
   # ## Mock Framework
   #
   # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
