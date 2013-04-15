@@ -6,3 +6,5 @@ test/
 db/*.osm.*
 tmp/
 coverage/
+custom_plan.rb
+zeus.json
