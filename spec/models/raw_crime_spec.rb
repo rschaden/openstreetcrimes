@@ -6,22 +6,20 @@ describe RawCrime do
   end
 
   context 'validations' do
-    before :each do
-      @raw_crime = FactoryGirl.create :raw_crime
-    end
+    let(:raw_crime) { FactoryGirl.create :raw_crime }
 
     it 'is valid' do
-      @raw_crime.should be_valid
+      raw_crime.should be_valid
     end
 
     it 'is not valid without guid' do
-      @raw_crime.guid = ""
-      @raw_crime.should_not be_valid
+      raw_crime.guid = ""
+      raw_crime.should_not be_valid
     end
 
     it 'does not allow duplicate guids' do
       duplicate_crime = FactoryGirl.build(:raw_crime,
-                                          guid: @raw_crime.guid)
+                                          guid: raw_crime.guid)
       duplicate_crime.should_not be_valid
     end
   end
