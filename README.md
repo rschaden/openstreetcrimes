@@ -158,7 +158,7 @@ $ sudo gem install bundler
 
 ```
 # We need these additional libraries and tools for our project:
-$ sudo apt-get git install libcurl4-gnutls-dev libxslt1-dev
+$ sudo apt-get install git libcurl4-gnutls-dev libxslt1-dev
 
 # Install openstreetcrimes:
 
